@@ -31,6 +31,14 @@ class AnaliseProducao {
         // Paginação do histórico
         this.currentHistoryPage = 1;
         this.historyRowsPerPage = 10;
+        // Estado do gráfico para zoom e pan
+        this.chartState = {
+            originalData: null,
+            zoomLevel: 1,
+            panOffset: 0,
+            isPanning: false,
+            panStartX: 0
+        };
         
         this.init();
     }
@@ -185,6 +193,48 @@ class AnaliseProducao {
                 }
             }
         });
+
+        // Event listeners para botões de controle do gráfico
+        this.setupChartControls();
+    }
+
+    // Configurar controles do gráfico
+    setupChartControls() {
+        // Botão Zoom In
+        const zoomIn = document.getElementById('zoomIn');
+        if (zoomIn) {
+            zoomIn.addEventListener('click', () => this.zoomChart(1.2));
+        }
+
+        // Botão Zoom Out
+        const zoomOut = document.getElementById('zoomOut');
+        if (zoomOut) {
+            zoomOut.addEventListener('click', () => this.zoomChart(0.8));
+        }
+
+        // Botão Pan
+        const panBtn = document.getElementById('pan');
+        if (panBtn) {
+            panBtn.addEventListener('click', () => this.togglePanMode());
+        }
+
+        // Botão Reset Zoom
+        const resetZoom = document.getElementById('resetZoom');
+        if (resetZoom) {
+            resetZoom.addEventListener('click', () => this.resetChartView());
+        }
+
+        // Botão Navegar Esquerda
+        const navigateLeft = document.getElementById('navigateLeft');
+        if (navigateLeft) {
+            navigateLeft.addEventListener('click', () => this.navigateChart(-1));
+        }
+
+        // Botão Navegar Direita
+        const navigateRight = document.getElementById('navigateRight');
+        if (navigateRight) {
+            navigateRight.addEventListener('click', () => this.navigateChart(1));
+        }
     }
 
     // Configurar filtros de data
@@ -421,6 +471,14 @@ class AnaliseProducao {
 
         // Preparar dados para o gráfico
         const chartData = this.prepareChartData();
+
+        // Salvar dados originais para reset
+        this.chartState.originalData = {
+            labels: [...chartData.labels],
+            values: [...chartData.values]
+        };
+        this.chartState.zoomLevel = 1;
+        this.chartState.panOffset = 0;
 
         this.chart = new Chart(ctx, {
             type: 'line',
@@ -1467,6 +1525,165 @@ class AnaliseProducao {
                 }
             }
         });
+    }
+
+    // Zoom no gráfico
+    zoomChart(factor) {
+        if (!this.chart || !this.chartState.originalData) return;
+
+        this.chartState.zoomLevel *= factor;
+        this.chartState.zoomLevel = Math.max(0.5, Math.min(5, this.chartState.zoomLevel)); // Limitar entre 0.5x e 5x
+
+        this.updateChartView();
+    }
+
+    // Atualizar visualização do gráfico com zoom e pan
+    updateChartView() {
+        if (!this.chart || !this.chartState.originalData) return;
+
+        const totalPoints = this.chartState.originalData.labels.length;
+        const visiblePoints = Math.max(10, Math.floor(totalPoints / this.chartState.zoomLevel));
+        const maxOffset = Math.max(0, totalPoints - visiblePoints);
+        
+        // Aplicar pan offset limitado
+        let offset = Math.max(0, Math.min(maxOffset, this.chartState.panOffset));
+        this.chartState.panOffset = offset;
+
+        const startIndex = Math.floor(offset);
+        const endIndex = Math.min(startIndex + visiblePoints, totalPoints);
+
+        // Atualizar dados do gráfico
+        this.chart.data.labels = this.chartState.originalData.labels.slice(startIndex, endIndex);
+        this.chart.data.datasets[0].data = this.chartState.originalData.values.slice(startIndex, endIndex);
+        
+        this.chart.update('none'); // Atualizar sem animação para melhor performance
+    }
+
+    // Alternar modo pan
+    togglePanMode() {
+        const panBtn = document.getElementById('pan');
+        if (!panBtn) return;
+
+        this.chartState.isPanning = !this.chartState.isPanning;
+        
+        if (this.chartState.isPanning) {
+            panBtn.classList.add('active');
+            panBtn.style.backgroundColor = '#3b82f6';
+            panBtn.style.color = 'white';
+            
+            // Criar bound handlers se ainda não existirem
+            if (!this.boundPanHandlers) {
+                this.boundPanHandlers = {
+                    start: this.handlePanStart.bind(this),
+                    move: this.handlePanMove.bind(this),
+                    end: this.handlePanEnd.bind(this)
+                };
+            }
+            
+            // Adicionar event listeners para pan
+            const canvas = document.getElementById('productionChart');
+            if (canvas) {
+                canvas.style.cursor = 'grab';
+                canvas.addEventListener('mousedown', this.boundPanHandlers.start);
+                document.addEventListener('mousemove', this.boundPanHandlers.move);
+                document.addEventListener('mouseup', this.boundPanHandlers.end);
+                canvas.addEventListener('mouseleave', this.boundPanHandlers.end);
+            }
+        } else {
+            panBtn.classList.remove('active');
+            panBtn.style.backgroundColor = '';
+            panBtn.style.color = '';
+            
+            // Remover event listeners
+            const canvas = document.getElementById('productionChart');
+            if (canvas && this.boundPanHandlers) {
+                canvas.style.cursor = '';
+                canvas.removeEventListener('mousedown', this.boundPanHandlers.start);
+                document.removeEventListener('mousemove', this.boundPanHandlers.move);
+                document.removeEventListener('mouseup', this.boundPanHandlers.end);
+                canvas.removeEventListener('mouseleave', this.boundPanHandlers.end);
+            }
+        }
+    }
+
+    // Iniciar pan
+    handlePanStart(e) {
+        if (!this.chartState.isPanning) return;
+        this.chartState.panStartX = e.clientX;
+        const canvas = document.getElementById('productionChart');
+        if (canvas) {
+            canvas.style.cursor = 'grabbing';
+        }
+    }
+
+    // Mover durante pan
+    handlePanMove(e) {
+        if (!this.chartState.isPanning || !this.chartState.panStartX || !this.chart) return;
+        
+        const deltaX = e.clientX - this.chartState.panStartX;
+        const totalPoints = this.chartState.originalData.labels.length;
+        const visiblePoints = Math.max(10, Math.floor(totalPoints / this.chartState.zoomLevel));
+        
+        // Converter movimento do mouse em offset de pontos
+        const chartWidth = this.chart.chartArea ? (this.chart.chartArea.right - this.chart.chartArea.left) : 800;
+        const pointsPerPixel = totalPoints / chartWidth;
+        const deltaPoints = -deltaX * pointsPerPixel; // Negativo para mover na direção correta
+        
+        this.chartState.panOffset += deltaPoints;
+        this.chartState.panStartX = e.clientX;
+        
+        this.updateChartView();
+    }
+
+    // Finalizar pan
+    handlePanEnd(e) {
+        // Só finalizar se o mouse foi solto ou saiu do canvas
+        if (e && e.type === 'mouseleave' && e.target.id !== 'productionChart') {
+            return; // Não finalizar se o mouse ainda está sobre o canvas
+        }
+        
+        this.chartState.panStartX = 0;
+        const canvas = document.getElementById('productionChart');
+        if (canvas && this.chartState.isPanning) {
+            canvas.style.cursor = 'grab';
+        }
+    }
+
+    // Resetar visualização do gráfico
+    resetChartView() {
+        if (!this.chart || !this.chartState.originalData) return;
+
+        this.chartState.zoomLevel = 1;
+        this.chartState.panOffset = 0;
+
+        // Restaurar dados originais
+        this.chart.data.labels = [...this.chartState.originalData.labels];
+        this.chart.data.datasets[0].data = [...this.chartState.originalData.values];
+        
+        this.chart.update();
+
+        // Desativar pan se estiver ativo
+        if (this.chartState.isPanning) {
+            this.togglePanMode();
+        }
+    }
+
+    // Navegar no gráfico (esquerda/direita)
+    navigateChart(direction) {
+        if (!this.chart || !this.chartState.originalData) return;
+
+        const totalPoints = this.chartState.originalData.labels.length;
+        const visiblePoints = Math.max(10, Math.floor(totalPoints / this.chartState.zoomLevel));
+        const maxOffset = Math.max(0, totalPoints - visiblePoints);
+        
+        // Mover 20% da visualização atual
+        const step = Math.max(1, Math.floor(visiblePoints * 0.2));
+        this.chartState.panOffset += direction * step;
+        
+        // Limitar offset
+        this.chartState.panOffset = Math.max(0, Math.min(maxOffset, this.chartState.panOffset));
+        
+        this.updateChartView();
     }
 }
 
