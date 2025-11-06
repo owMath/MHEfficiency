@@ -1,0 +1,300 @@
+/* Estilos específicos para página de OEE Geral */
+
+/* Container principal do dashboard */
+.oee-geral-dashboard {
+    padding: 3rem;
+    background-color: #ffffff;
+    min-height: calc(100vh - 120px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Navegação entre Máquinas */
+.machine-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.machine-nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #1e3a8a 100%);
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3), 0 2px 4px rgba(30, 58, 138, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 120px;
+    position: relative;
+    overflow: hidden;
+}
+
+.machine-nav-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.machine-nav-btn:hover::before,
+.machine-nav-btn.active::before {
+    opacity: 1;
+}
+
+.machine-nav-btn:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 8px 24px rgba(30, 58, 138, 0.4), 0 4px 8px rgba(30, 58, 138, 0.3);
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.machine-nav-btn.active {
+    background: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #1e40af 100%);
+    box-shadow: 0 6px 20px rgba(30, 58, 138, 0.4);
+}
+
+.machine-nav-btn i {
+    font-size: 1.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.machine-nav-btn span {
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Título principal da página */
+.page-main-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin: 0 0 3rem 0;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid #1e3a8a;
+}
+
+/* Grid de máquinas OEE */
+.oee-machines-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
+    gap: 2rem;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    justify-content: center;
+    justify-items: center;
+}
+
+/* Mensagem de carregamento */
+.loading-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    color: #6b7280;
+    font-size: 1.1rem;
+}
+
+.loading-message i {
+    font-size: 2rem;
+    margin-right: 1rem;
+    color: #3b82f6;
+}
+
+/* Card do OEE por Máquina */
+.oee-geral-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 320px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.oee-geral-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Título do card */
+.card-title-geral {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #3b82f6;
+    margin: 0 0 1.25rem 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: center;
+}
+
+/* Conteúdo do card */
+.card-content-geral {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+/* Container do gauge */
+.gauge-container-geral {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+/* Gauge circular */
+.circular-gauge-geral {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 15px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.circular-gauge-geral:hover {
+    transform: scale(1.05);
+}
+
+/* Valor do gauge */
+.gauge-value-geral {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #3b82f6;
+    transition: all 0.3s ease;
+}
+
+/* Nome da máquina no card */
+.machine-name {
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Cores dinâmicas do gauge baseado no valor */
+.circular-gauge-geral[data-oee-excellent] {
+    border-color: #10b981;
+}
+
+.circular-gauge-geral[data-oee-excellent] .gauge-value-geral {
+    color: #10b981;
+}
+
+.circular-gauge-geral[data-oee-good] {
+    border-color: #f97316;
+}
+
+.circular-gauge-geral[data-oee-good] .gauge-value-geral {
+    color: #f97316;
+}
+
+.circular-gauge-geral[data-oee-poor] {
+    border-color: #ef4444;
+}
+
+.circular-gauge-geral[data-oee-poor] .gauge-value-geral {
+    color: #ef4444;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .oee-geral-dashboard {
+        padding: 2rem 1rem;
+    }
+
+    .page-main-title {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+    }
+
+    .oee-machines-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .oee-geral-card {
+        padding: 1.5rem;
+    }
+
+    .circular-gauge-geral {
+        width: 180px;
+        height: 180px;
+        border-width: 12px;
+    }
+
+    .gauge-value-geral {
+        font-size: 2rem;
+    }
+
+    .machine-navigation {
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+    }
+
+    .machine-nav-btn {
+        padding: 0.75rem 1rem;
+        min-width: 100px;
+        gap: 0.4rem;
+    }
+
+    .machine-nav-btn i {
+        font-size: 1.25rem;
+    }
+
+    .machine-nav-btn span {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .circular-gauge-geral {
+        width: 150px;
+        height: 150px;
+        border-width: 10px;
+    }
+
+    .gauge-value-geral {
+        font-size: 1.8rem;
+    }
+
+    .page-main-title {
+        font-size: 1.5rem;
+    }
+
+    .card-title-geral {
+        font-size: 1rem;
+    }
+}
+

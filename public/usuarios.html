@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema OEE - Usuários</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/usuarios.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Estilos específicos da página de usuários (apoiados pelo style.css) */
+        .users-header-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+        .search-input { padding: 0.75rem 1rem; border: 2px solid #e5e7eb; border-radius: 8px; min-width: 260px; }
+        .tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .tab-btn { background: #f3f4f6; color: #374151; border: none; padding: 0.5rem 0.9rem; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .tab-btn.active { background: #2563eb; color: #fff; }
+        .users-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); 
+            gap: 1.5rem; 
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        @media (max-width: 1400px) {
+            .users-grid {
+                grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+                max-width: 1200px;
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .users-grid {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+                max-width: 1000px;
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .users-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                padding: 1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .users-grid {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+                gap: 1rem;
+                max-width: 100%;
+            }
+        }
+        .user-card { 
+            background: #fff; 
+            border: 1px solid #e5e7eb; 
+            border-radius: 12px; 
+            padding: 1rem; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.06); 
+            display: flex; 
+            gap: 1rem; 
+            align-items: center;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-sizing: border-box;
+        }
+        
+        .user-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .user-avatar { width: 48px; height: 48px; border-radius: 999px; display: grid; place-items: center; color: #fff; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); font-weight: 700; }
+        .user-meta { 
+            flex: 1; 
+            min-width: 0; 
+            overflow: hidden;
+        }
+        .user-meta h3 { 
+            margin: 0; 
+            color: #1e3a8a; 
+            font-size: 1.05rem; 
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .user-meta p { 
+            margin: 0.1rem 0; 
+            color: #6b7280; 
+            font-size: 0.9rem; 
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .user-actions { 
+            margin-left: auto; 
+            display: flex; 
+            gap: 0.5rem; 
+            align-items: center; 
+            flex-shrink: 0;
+        }
+        
+        .user-actions button {
+            flex-shrink: 0;
+            min-width: 36px;
+            height: 36px;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .pill { padding: 0.25rem 0.6rem; border-radius: 999px; font-size: 0.75rem; font-weight: 700; white-space: nowrap; }
+        .pill.pendente { background:#fef3c7; color:#92400e; }
+        .pill.ativo { background:#dcfce7; color:#166534; }
+        .pill.inativo { background:#fee2e2; color:#991b1b; }
+        .permissions-list { 
+            overflow-y: auto; 
+            padding-right: 8px; 
+            margin-bottom: 1rem;
+        }
+        .permissions-list::-webkit-scrollbar { width: 6px; }
+        .permissions-list::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 3px; }
+        .permissions-list::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .permissions-list::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .permission-category { 
+            margin-bottom: 1.5rem; 
+            background: #f8fafc; 
+            padding: 1rem; 
+            border-radius: 8px; 
+            border: 1px solid #e2e8f0;
+        }
+        .category-title { 
+            color: #1e40af; 
+            font-size: 1rem; 
+            font-weight: 600; 
+            margin-bottom: 0.75rem; 
+            padding-bottom: 0.5rem; 
+            border-bottom: 2px solid #dbeafe;
+        }
+        .category-items { 
+            display: grid; 
+            grid-template-columns: 1fr; 
+            gap: 0.5rem;
+        }
+        .permission-item { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.75rem; 
+            padding: 0.75rem; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            transition: all 0.2s ease; 
+            background: white;
+        }
+        .permission-item:hover { 
+            background-color: #f1f5f9; 
+            border-color: #3b82f6; 
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .permission-item input[type="checkbox"] { 
+            margin: 0; 
+            width: 16px; 
+            height: 16px; 
+            accent-color: #3b82f6;
+        }
+        .permission-item span { 
+            font-size: 0.9rem; 
+            color: #374151; 
+            font-weight: 500;
+        }
+        
+        /* Estilos para o modal de edição */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #374151;
+            font-size: 0.9rem;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            background: #fff;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .form-group select {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+        .machine-info {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 6px;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #0369a1;
+        }
+        .machine-info i {
+            margin-right: 0.5rem;
+        }
+    </style>
+    </head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-cog"></i>
+                    <span class="logo-text">MH Efficiency</span>
+                </div>
+                <h1 class="system-title">Sistema OEE</h1>
+                <p class="system-subtitle">Painel de Controle</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-compass"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="aprovacao-operadores.html" class="nav-link">
+                            <i class="fas fa-user-check"></i>
+                            <span>Aprovação de Operadores</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Usuários</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header-left">
+                    <h1 class="page-title">Usuários</h1>
+                    <div class="status-message" id="statusMessage"></div>
+                </div>
+                <div class="user-info">
+                    <span class="username" id="userName">Carregando...</span>
+                    <i class="fas fa-user"></i>
+                    <button class="logout-btn" onclick="logout()" type="button" title="Sair">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="dashboard-content">
+                <section class="approval-section">
+                    <div class="section-header" style="align-items: flex-start; gap: 1rem;">
+                        <h2>Gestão de Usuários</h2>
+                        <div class="users-header-actions">
+                            <input type="text" id="searchInput" class="search-input" placeholder="Buscar por nome ou email..." />
+                            <div class="tabs">
+                                <button class="tab-btn active" data-tab="todos">Todos</button>
+                                <button class="tab-btn" data-tab="pendente">Pendentes <span class="pill pendente" id="countPendente">0</span></button>
+                                <button class="tab-btn" data-tab="ativo">Ativos <span class="pill ativo" id="countAtivo">0</span></button>
+                                <button class="tab-btn" data-tab="inativo">Inativos <span class="pill inativo" id="countInativo">0</span></button>
+                            </div>
+                            <button class="btn-primary" id="refreshBtn"><i class="fas fa-rotate"></i> Atualizar</button>
+                        </div>
+                    </div>
+
+                    <div id="usersContainer" class="users-grid">
+                        <div class="loading-state" id="loadingState">
+                            <div class="loading-spinner"></div>
+                            <p>Carregando usuários...</p>
+                        </div>
+                    </div>
+
+                    <div class="empty-state" id="emptyState" style="display:none;">
+                        <i class="fas fa-users"></i>
+                        <h3>Nenhum usuário encontrado</h3>
+                        <p>Ajuste os filtros ou tente novamente.</p>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal: Editar Usuário -->
+    <div id="editUserModal" class="modal">
+        <div class="modal-content" style="max-width:650px;">
+            <div class="modal-header">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                        <i class="fas fa-user-edit"></i>
+                    </div>
+                    <div>
+                        <h3 style="margin: 0; color: #1e40af;">Editar Operador</h3>
+                        <p style="margin: 0; font-size: 0.8rem; color: #6b7280;">Atualize os dados do operador</p>
+                    </div>
+                </div>
+                <button class="modal-close" id="editUserModalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editUserForm">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div class="form-group">
+                            <label for="editUserName"><i class="fas fa-user"></i> Nome Completo:</label>
+                            <input type="text" id="editUserName" name="nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editUserEmail"><i class="fas fa-envelope"></i> Email:</label>
+                            <input type="email" id="editUserEmail" name="email" required>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div class="form-group">
+                            <label for="editUserCargo"><i class="fas fa-briefcase"></i> Cargo:</label>
+                            <input type="text" id="editUserCargo" name="cargo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editUserTelefone"><i class="fas fa-phone"></i> Telefone:</label>
+                            <input type="text" id="editUserTelefone" name="telefone" placeholder="(11) 99999-9999" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editUserMachine"><i class="fas fa-cog"></i> Máquina Responsável:</label>
+                        <select id="editUserMachine" name="machineId" required>
+                            <option value="">Selecione uma máquina</option>
+                        </select>
+                        <div class="machine-info" id="machineInfo" style="display: none;">
+                            <i class="fas fa-info-circle"></i>
+                            <span id="machineInfoText"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelEditUserBtn">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button class="btn-primary" id="saveEditUserBtn">
+                    <i class="fas fa-save"></i> Salvar Alterações
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Permissões -->
+    <div id="permissionsModal" class="modal">
+        <div class="modal-content" style="max-width:800px; max-height:90vh; display:flex; flex-direction:column;">
+            <div class="modal-header">
+                <h3>Permissões do Usuário</h3>
+                <button class="modal-close" id="permissionsModalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="flex:1; overflow:hidden; display:flex; flex-direction:column;">
+                <p style="margin-bottom: 1rem; color:#6b7280;">Selecione as páginas que este usuário poderá acessar.</p>
+                <div class="permissions-list" id="permissionsList" style="flex:1; overflow-y:auto;">
+                    <!-- preenchido via JS -->
+                </div>
+            </div>
+            <div class="modal-footer" style="flex-shrink:0; margin-top:1rem;">
+                <button class="btn-secondary" id="cancelPermissionsBtn">Cancelar</button>
+                <button class="btn-primary" id="savePermissionsBtn">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Confirmação genérica -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="confirmTitle">Confirmar ação</h3>
+                <button class="modal-close" onclick="closeConfirmModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body"><p id="confirmMessage">Tem certeza?</p></div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeConfirmModal()">Cancelar</button>
+                <button class="btn-primary" id="confirmBtn">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Mensagem/feedback -->
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <div class="message-icon"><i id="messageIcon" class="fas fa-check-circle"></i></div>
+            <h3 id="messageTitle">Sucesso</h3>
+            <p id="messageText">Operação realizada com sucesso!</p>
+            <button id="messageClose" class="btn-primary">OK</button>
+        </div>
+    </div>
+
+    <script src="js/users.js"></script>
+    <script src="js/permissions.js"></script>
+    <script src="js/page-permissions.js"></script>
+</body>
+</html>
+
+

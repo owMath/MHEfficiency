@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema OEE - Cadastro Empresa</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="auth-body">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="logo">
+                    <i class="fas fa-cog"></i>
+                    <span class="logo-text">MH Efficiency</span>
+                </div>
+                <h1 class="auth-title">Cadastro de Empresa</h1>
+                <p class="auth-subtitle">Preencha os dados da empresa para ter acesso completo</p>
+            </div>
+
+            <form id="empresaForm" class="auth-form">
+                <div class="form-section">
+                    <h3>Dados Pessoais</h3>
+                    
+                    <div class="form-group">
+                        <label for="nome">Nome Completo</label>
+                        <div class="input-group">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="nome" name="nome" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="senha">Senha</label>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="senha" name="senha" required minlength="6">
+                            <button type="button" class="toggle-password" data-target="senha">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmarSenha">Confirmar Senha</label>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="confirmarSenha" name="confirmarSenha" required>
+                            <button type="button" class="toggle-password" data-target="confirmarSenha">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Dados da Empresa</h3>
+                    
+                    <div class="form-group">
+                        <label for="nomeEmpresa">Nome da Empresa</label>
+                        <div class="input-group">
+                            <i class="fas fa-building"></i>
+                            <input type="text" id="nomeEmpresa" name="nomeEmpresa" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cnpj">CNPJ</label>
+                        <div class="input-group">
+                            <i class="fas fa-id-card"></i>
+                            <input type="text" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefone">Telefone</label>
+                        <div class="input-group">
+                            <i class="fas fa-phone"></i>
+                            <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Endereço</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="rua">Rua</label>
+                            <div class="input-group">
+                                <i class="fas fa-road"></i>
+                                <input type="text" id="rua" name="rua" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="numero">Número</label>
+                            <div class="input-group">
+                                <i class="fas fa-hashtag"></i>
+                                <input type="text" id="numero" name="numero" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bairro">Bairro</label>
+                        <div class="input-group">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <input type="text" id="bairro" name="bairro" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cidade">Cidade</label>
+                            <div class="input-group">
+                                <i class="fas fa-city"></i>
+                                <input type="text" id="cidade" name="cidade" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="estado">Estado</label>
+                            <div class="input-group">
+                                <i class="fas fa-map"></i>
+                                <input type="text" id="estado" name="estado" placeholder="SP" maxlength="2" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cep">CEP</label>
+                        <div class="input-group">
+                            <i class="fas fa-mail-bulk"></i>
+                            <input type="text" id="cep" name="cep" placeholder="00000-000" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Linha de Produção</h3>
+                    <p class="form-description">Configure sua linha de produção selecionando até 5 máquinas disponíveis.</p>
+                    
+                    <div class="form-group">
+                        <label for="nomeLinha">Nome da Linha de Produção</label>
+                        <div class="input-group">
+                            <i class="fas fa-industry"></i>
+                            <input type="text" id="nomeLinha" name="nomeLinha" placeholder="Ex: Linha Principal" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descricaoLinha">Descrição (Opcional)</label>
+                        <div class="input-group">
+                            <i class="fas fa-info-circle"></i>
+                            <textarea id="descricaoLinha" name="descricaoLinha" rows="3" placeholder="Descreva a função desta linha de produção..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Máquinas Disponíveis</label>
+                        <div class="machines-selection">
+                            <div class="machine-option">
+                                <input type="checkbox" id="machine-01" name="maquinas" value="Torno">
+                                <label for="machine-01">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Torno (Máquina 1)</span>
+                                </label>
+                            </div>
+                            <div class="machine-option">
+                                <input type="checkbox" id="machine-02" name="maquinas" value="Torno-CNC">
+                                <label for="machine-02">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Torno-CNC (Máquina 2)</span>
+                                </label>
+                            </div>
+                            <div class="machine-option">
+                                <input type="checkbox" id="machine-03" name="maquinas" value="Fresa">
+                                <label for="machine-03">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Fresa (Máquina 3)</span>
+                                </label>
+                            </div>
+                            <div class="machine-option">
+                                <input type="checkbox" id="machine-04" name="maquinas" value="Injetora">
+                                <label for="machine-04">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Injetora (Máquina 4)</span>
+                                </label>
+                            </div>
+                            <div class="machine-option">
+                                <input type="checkbox" id="machine-05" name="maquinas" value="Usinox">
+                                <label for="machine-05">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Usinox (Máquina 5)</span>
+                                </label>
+                            </div>
+                        </div>
+                        <small class="form-help">Selecione até 5 máquinas para sua linha de produção.</small>
+                    </div>
+                </div>
+
+                <button type="submit" class="auth-btn">
+                    <i class="fas fa-building"></i>
+                    Cadastrar Empresa
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Já tem uma conta?</p>
+                <div class="auth-links">
+                    <a href="login.html" class="auth-link">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Fazer Login
+                    </a>
+                    <a href="cadastro-operador.html" class="auth-link">
+                        <i class="fas fa-user"></i>
+                        Cadastrar como Operador
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="auth-info">
+            <h2>Cadastro de Empresa</h2>
+            <p>Como empresa, você terá acesso completo ao sistema e poderá gerenciar operadores.</p>
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-crown"></i>
+                    <span>Acesso Completo</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-users"></i>
+                    <span>Gerenciar Operadores</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Relatórios Avançados</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loadingModal" class="modal">
+        <div class="modal-content">
+            <div class="loading-spinner"></div>
+            <p>Processando...</p>
+        </div>
+    </div>
+
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <div class="message-icon">
+                <i id="messageIcon" class="fas fa-check-circle"></i>
+            </div>
+            <h3 id="messageTitle">Sucesso</h3>
+            <p id="messageText">Operação realizada com sucesso!</p>
+            <button id="messageClose" class="btn-primary">OK</button>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/permissions.js"></script>
+    <script src="js/page-permissions.js"></script>
+</body>
+</html>

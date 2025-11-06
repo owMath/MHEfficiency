@@ -1,0 +1,6 @@
+/* CSS específico para página de aprovação de operadores */
+
+/* Título "Operadores Aguardando Aprovação" - cor preta */
+.section-header h2 {
+    color: #000000 !important;
+}

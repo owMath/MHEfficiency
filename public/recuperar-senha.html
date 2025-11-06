@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MH Efficiency - Recuperar Senha</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="auth-body">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="logo">
+                    <i class="fas fa-cog"></i>
+                    <span class="logo-text">MH Efficiency</span>
+                </div>
+                <p class="auth-subtitle" id="subtitle">Digite seu email para recuperar a senha</p>
+            </div>
+
+            <!-- Formulário de solicitação de reset -->
+            <form id="requestResetForm" class="auth-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="auth-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    Enviar link de recuperação
+                </button>
+            </form>
+
+            <!-- Formulário de redefinição de senha (oculto inicialmente) -->
+            <form id="resetPasswordForm" class="auth-form" style="display: none;">
+                <div class="form-group">
+                    <label for="novaSenha">Nova Senha</label>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="novaSenha" name="novaSenha" required>
+                        <button type="button" class="toggle-password" data-target="novaSenha">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmarSenha">Confirmar Nova Senha</label>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="confirmarSenha" name="confirmarSenha" required>
+                        <button type="button" class="toggle-password" data-target="confirmarSenha">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="auth-btn">
+                    <i class="fas fa-key"></i>
+                    Redefinir Senha
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <a href="login.html" class="auth-link">
+                    <i class="fas fa-arrow-left"></i>
+                    Voltar para o login
+                </a>
+            </div>
+        </div>
+
+        <div class="auth-info">
+            <div class="logo-container">
+                <img src="imgs/logo_sem_fundo.png" alt="MH Efficiency Logo" class="main-logo">
+            </div>
+            <h2>Recuperação de Senha</h2>
+            <p>Digite seu email cadastrado e enviaremos um link para redefinir sua senha.</p>
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Segurança Garantida</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-envelope-open"></i>
+                    <span>Link no Email</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-clock"></i>
+                    <span>Link Válido por 1 hora</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loadingModal" class="modal">
+        <div class="modal-content">
+            <div class="loading-spinner"></div>
+            <p>Processando...</p>
+        </div>
+    </div>
+
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <div class="message-icon">
+                <i id="messageIcon" class="fas fa-check-circle"></i>
+            </div>
+            <h3 id="messageTitle">Sucesso</h3>
+            <p id="messageText">Operação realizada com sucesso!</p>
+            <button id="messageClose" class="btn-primary">OK</button>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema OEE - Análise de Produção</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/chart.min.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-cog"></i>
+                    <span class="logo-text">MH Efficiency</span>
+                </div>
+                <h1 class="system-title">Sistema OEE</h1>
+                <p class="system-subtitle">Painel de Controle</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-compass"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-sistema.html" class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Configurações do Sistema</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="perfil.html" class="nav-link">
+                            <i class="fas fa-user"></i>
+                            <span>Perfil</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="usuarios.html" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Usuários</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <hr class="nav-divider">
+                
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="paradas-maquina.html" class="nav-link">
+                            <i class="fas fa-circle"></i>
+                            <span>Paradas de Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="analise-producao.html" class="nav-link">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Análise de Produção</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-parada.html" class="nav-link">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Motivos de Parada</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-descarte.html" class="nav-link">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Motivos de Descarte</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="cadastro-produtos.html" class="nav-link">
+                            <i class="fas fa-box"></i>
+                            <span>Cadastro de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="produto-maquina.html" class="nav-link">
+                            <i class="fas fa-link"></i>
+                            <span>Produto x Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracao-produtos.html" class="nav-link">
+                            <i class="fas fa-wrench"></i>
+                            <span>Configurações de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-turno.html" class="nav-link">
+                            <i class="fas fa-clock"></i>
+                            <span>Configurações de Turno</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header-left">
+                    <h1 class="page-title">Análise de Produção</h1>
+                    <div class="filter-section">
+                        <label for="machineFilter">Filtrar por Máquina:</label>
+                        <select id="machineFilter" class="filter-select">
+                            <option value="all">Todas as Máquinas</option>
+                        </select>
+                        <div class="filter-info" id="filterInfo" style="display: none;">
+                            <i class="fas fa-info-circle"></i>
+                            <span id="filterInfoText"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-info">
+                    <span class="username">Matheus</span>
+                    <i class="fas fa-user"></i>
+                    <button class="logout-btn">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Filtros e Exportação -->
+                <section class="filters-section">
+                    <div class="filters-container">
+                        <div class="date-filters">
+                            <div class="date-input-group">
+                                <label for="startDate">Data Inicial:</label>
+                                <input type="datetime-local" id="startDate" class="date-input">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="date-input-group">
+                                <label for="endDate">Data Final:</label>
+                                <input type="datetime-local" id="endDate" class="date-input">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <button id="applyFilters" class="btn-primary">
+                                <i class="fas fa-search"></i>
+                                Aplicar Filtros
+                            </button>
+                        </div>
+                        <div class="export-section">
+                            <label>Exportar:</label>
+                            <button id="exportPDF" class="btn-export btn-pdf">
+                                <i class="fas fa-file-pdf"></i>
+                                PDF
+                            </button>
+                            <button id="exportCSV" class="btn-export btn-csv">
+                                <i class="fas fa-file-csv"></i>
+                                CSV
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Cards de Métricas -->
+                <section class="metrics-section">
+                    <div class="metrics-grid">
+                        <!-- Total de Ciclos -->
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>Total de Ciclos</h3>
+                                <i class="fas fa-cog"></i>
+                            </div>
+                            <div class="metric-value" id="totalCycles">0</div>
+                        </div>
+
+                        <!-- Ciclos Conformes -->
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>Ciclos Conformes</h3>
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="metric-value" id="conformCycles">0</div>
+                        </div>
+
+                        <!-- Taxa de Conformidade -->
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>Taxa de Conformidade</h3>
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="metric-value" id="conformityRate">0%</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Gráfico de Monitoramento -->
+                <section class="chart-section">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Monitoramento - Dados de Produção</h3>
+                            <span class="period-info">Período selecionado</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="productionChart" width="800" height="400"></canvas>
+                        </div>
+                        <div class="chart-controls">
+                            <button class="chart-btn" id="zoomIn" title="Zoom In">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
+                            <button class="chart-btn" id="zoomOut" title="Zoom Out">
+                                <i class="fas fa-search-minus"></i>
+                            </button>
+                            <button class="chart-btn" id="pan" title="Pan">
+                                <i class="fas fa-hand-paper"></i>
+                            </button>
+                            <button class="chart-btn" id="resetZoom" title="Reset Zoom">
+                                <i class="fas fa-undo"></i>
+                            </button>
+                            <button class="chart-btn" id="navigateLeft" title="Navegar Esquerda">
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                            <button class="chart-btn" id="navigateRight" title="Navegar Direita">
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <span class="legend-color" style="background-color: #3b82f6;"></span>
+                                <span class="legend-label">Dados Produção Un 1</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Gráficos de Produtos -->
+                <section class="products-charts-section">
+                    <div class="products-charts-grid">
+                        <!-- Gráfico de Pizza -->
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Produtos por Quantidade</h3>
+                                <span class="period-info">Ordens de Produção</span>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="productsPieChart" width="400" height="400"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Gráfico de Barras -->
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Produtos por Quantidade</h3>
+                                <span class="period-info">Ordens de Produção</span>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="productsBarChart" width="400" height="400"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Histórico de Ciclos -->
+                <section class="history-section">
+                    <div class="history-header">
+                        <h2>Histórico de Ciclos de Produção</h2>
+                        <select id="historyFilter" class="period-filter">
+                            <option value="day">Hoje</option>
+                            <option value="week">Esta Semana</option>
+                            <option value="month">Este Mês</option>
+                            <option value="year">Este Ano</option>
+                        </select>
+                    </div>
+                    
+                    <div class="history-table-container">
+                        <table class="history-table" id="historyTable">
+                            <thead>
+                                <tr>
+                                    <th>Data/Hora</th>
+                                    <th>Máquina</th>
+                                    <th>Produto</th>
+                                    <th>Quantidade</th>
+                                    <th>Duração (s)</th>
+                                    <th>Eficiência</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyTableBody">
+                                <!-- Dados serão carregados via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="historyPagination" class="pagination" style="display: none;"></div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/libs/jspdf.umd.min.js"></script>
+    <script src="js/libs/html2canvas.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/permissions.js"></script>
+    <script src="js/page-permissions.js"></script>
+    <script src="js/analise-producao.js"></script>
+</body>
+</html>

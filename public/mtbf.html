@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema OEE - MTBF</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/paradas-maquina.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/chart.min.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-cog"></i>
+                    <span class="logo-text">MH Efficiency</span>
+                </div>
+                <h1 class="system-title">Sistema OEE</h1>
+                <p class="system-subtitle">Painel de Controle</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-compass"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-sistema.html" class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Configurações do Sistema</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="perfil.html" class="nav-link">
+                            <i class="fas fa-user"></i>
+                            <span>Perfil</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="usuarios.html" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Usuários</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <hr class="nav-divider">
+                
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="paradas-maquina.html" class="nav-link">
+                            <i class="fas fa-circle"></i>
+                            <span>Paradas de Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="analise-producao.html" class="nav-link">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Análise de Produção</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-parada.html" class="nav-link">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Motivos de Parada</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-descarte.html" class="nav-link">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Motivos de Descarte</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="cadastro-produtos.html" class="nav-link">
+                            <i class="fas fa-box"></i>
+                            <span>Cadastro de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="produto-maquina.html" class="nav-link">
+                            <i class="fas fa-link"></i>
+                            <span>Produto x Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracao-produtos.html" class="nav-link">
+                            <i class="fas fa-wrench"></i>
+                            <span>Configurações de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-turno.html" class="nav-link">
+                            <i class="fas fa-clock"></i>
+                            <span>Configurações de Turno</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header-left">
+                    <h1 class="page-title">MTBF - Tempo Médio Entre Falhas</h1>
+                    <div class="filter-section">
+                        <label for="machineFilter">Filtrar por Máquina:</label>
+                        <select id="machineFilter" class="filter-select">
+                            <option value="all">Todas as Máquinas</option>
+                        </select>
+                        <label for="periodFilter" style="margin-left: 1rem;">Período:</label>
+                        <select id="periodFilter" class="filter-select">
+                            <option value="day">Hoje</option>
+                            <option value="week">Esta Semana</option>
+                            <option value="month">Este Mês</option>
+                            <option value="year">Este Ano</option>
+                        </select>
+                        <div class="filter-info" id="filterInfo" style="display: none;">
+                            <i class="fas fa-info-circle"></i>
+                            <span id="filterInfoText"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-info">
+                    <span class="username">Matheus</span>
+                    <i class="fas fa-user"></i>
+                    <button class="logout-btn">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Cards de Métricas -->
+                <section class="metrics-section">
+                    <div class="metrics-grid">
+                        <!-- MTBF Geral -->
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>MTBF Geral</h3>
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="metric-value" id="mtbfGeral">--</div>
+                            <div class="metric-chart">
+                                <canvas id="mtbfChart" width="300" height="100"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- MTBF por Máquina -->
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>MTBF da Máquina Selecionada</h3>
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <div class="metric-value" id="mtbfMaquina">--</div>
+                            <div style="font-size: 0.85rem; color: #6b7280; margin-top: 0.5rem;">
+                                <span id="machineName">Selecione uma máquina</span>
+                            </div>
+                        </div>
+
+                        <!-- Número de Falhas -->
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>Número de Falhas</h3>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="metric-value" id="numeroFalhas">--</div>
+                            <div style="font-size: 0.85rem; color: #6b7280; margin-top: 0.5rem;">
+                                No período selecionado
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Gráficos de Análise -->
+                <section class="charts-section">
+                    <div class="charts-grid">
+                        <!-- MTBF por Máquina -->
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>MTBF por Máquina</h3>
+                                <select id="chartPeriodFilter" class="period-filter">
+                                    <option value="day">Hoje</option>
+                                    <option value="week">Esta Semana</option>
+                                    <option value="month">Este Mês</option>
+                                    <option value="year">Este Ano</option>
+                                </select>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="mtbfPorMaquinaChart" width="400" height="300"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Evolução do MTBF -->
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Evolução do MTBF</h3>
+                                <select id="evolutionPeriodFilter" class="period-filter">
+                                    <option value="week">Última Semana</option>
+                                    <option value="month">Último Mês</option>
+                                    <option value="quarter">Último Trimestre</option>
+                                    <option value="year">Último Ano</option>
+                                </select>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="evolucaoMtbfChart" width="400" height="300"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tabela de MTBF por Máquina -->
+                <section class="history-section">
+                    <div class="history-header">
+                        <h2>MTBF por Máquina</h2>
+                        <select id="tablePeriodFilter" class="period-filter">
+                            <option value="day">Hoje</option>
+                            <option value="week">Esta Semana</option>
+                            <option value="month">Este Mês</option>
+                            <option value="year">Este Ano</option>
+                        </select>
+                    </div>
+                    
+                    <div class="history-table-container">
+                        <table class="history-table" id="mtbfTable">
+                            <thead>
+                                <tr>
+                                    <th>Máquina</th>
+                                    <th>MTBF (horas)</th>
+                                    <th>Número de Falhas</th>
+                                    <th>Tempo Total de Operação</th>
+                                    <th>Status</th>
+                                    <th>Última Falha</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mtbfTableBody">
+                                <tr>
+                                    <td colspan="6" style="text-align: center; padding: 2rem;">
+                                        <div class="loading-state">
+                                            <div class="loading-spinner"></div>
+                                            <span>Carregando dados...</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/permissions.js"></script>
+    <script src="js/page-permissions.js"></script>
+    <script src="js/mtbf.js"></script>
+</body>
+</html>
+

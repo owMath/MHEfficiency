@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema OEE - Visão em Tempo Real</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/visao-tempo-real.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-cog"></i>
+                    <span class="logo-text">MH Efficiency</span>
+                </div>
+                <h1 class="system-title">Sistema OEE</h1>
+                <p class="system-subtitle">Painel de Controle</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-compass"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-sistema.html" class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Configurações do Sistema</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="perfil.html" class="nav-link">
+                            <i class="fas fa-user"></i>
+                            <span>Perfil</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="usuarios.html" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Usuários</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="aprovacao-operadores.html" class="nav-link">
+                            <i class="fas fa-user-check"></i>
+                            <span>Aprovação de Operadores</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <hr class="nav-divider">
+                
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="paradas-maquina.html" class="nav-link">
+                            <i class="fas fa-circle"></i>
+                            <span>Paradas de Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="analise-producao.html" class="nav-link">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Análise de Produção</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-parada.html" class="nav-link">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Motivos de Parada</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-descarte.html" class="nav-link">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Motivos de Descarte</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="cadastro-produtos.html" class="nav-link">
+                            <i class="fas fa-box"></i>
+                            <span>Cadastro de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="produto-maquina.html" class="nav-link">
+                            <i class="fas fa-link"></i>
+                            <span>Produto x Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracao-produtos.html" class="nav-link">
+                            <i class="fas fa-wrench"></i>
+                            <span>Configurações de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-turno.html" class="nav-link">
+                            <i class="fas fa-clock"></i>
+                            <span>Configurações de Turno</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header-left">
+                    <h1 class="page-title">
+                        <i class="fas fa-desktop"></i>
+                        Monitoramento Geral
+                    </h1>
+                    <div class="status-message"></div>
+                </div>
+                <div class="user-info">
+                    <span class="username">Matheus</span>
+                    <i class="fas fa-user"></i>
+                    <button class="logout-btn">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="realtime-dashboard">
+                <!-- Botões de Navegação entre Máquinas -->
+                <div class="machine-navigation">
+                    <a href="maquina-1.html" class="machine-nav-btn">
+                        <i class="fas fa-industry"></i>
+                        <span>Torno</span>
+                    </a>
+                    <a href="maquina-3.html" class="machine-nav-btn">
+                        <i class="fas fa-industry"></i>
+                        <span>Fresa</span>
+                    </a>
+                    <a href="maquina-4.html" class="machine-nav-btn">
+                        <i class="fas fa-industry"></i>
+                        <span>Injetora</span>
+                    </a>
+                    <a href="maquina-5.html" class="machine-nav-btn">
+                        <i class="fas fa-industry"></i>
+                        <span>Usinox</span>
+                    </a>
+                    <a href="oee-geral.html" class="machine-nav-btn">
+                        <i class="fas fa-chart-line"></i>
+                        <span>OEE Geral</span>
+                    </a>
+                </div>
+
+                <!-- Título da Máquina -->
+                <h2 class="machine-title">Torno-CNC</h2>
+
+                <!-- Primeira Linha de Cards -->
+                <div class="dashboard-row">
+                    <!-- Informações do Produto -->
+                    <div class="monitoring-card">
+                        <h3 class="card-title">Informações do Produto</h3>
+                        <div class="card-content">
+                            <div class="info-item">
+                                <span class="info-label">Produto Atual:</span>
+                                <span class="info-value blue-text" id="produtoAtualInfo">Nenhum produto ativo</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Código:</span>
+                                <span class="info-value" id="codigoProdutoInfo">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Quantidade:</span>
+                                <span class="info-value" id="quantidadeProdutoInfo">0</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Status:</span>
+                                <span class="info-value blue-text" id="statusProdutoInfo">Parado</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GERAL -->
+                    <div class="monitoring-card gauge-card">
+                        <h3 class="card-title">GERAL</h3>
+                        <div class="card-content">
+                            <div class="gauge-container">
+                                <div class="circular-gauge" id="geralGauge">
+                                    <span class="gauge-value">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Abertura de Ordem -->
+                    <div class="monitoring-card">
+                        <h3 class="card-title">Abertura de Ordem</h3>
+                        <div class="card-content">
+                            <button class="btn-create-order">
+                                <i class="fas fa-plus"></i>
+                                Criar Ordem
+                            </button>
+                            <div class="info-item">
+                                <span class="info-label">Ordens Ativas:</span>
+                                <span class="info-value">0</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Em Produção:</span>
+                                <span class="info-value">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Segunda Linha de Cards -->
+                <div class="dashboard-row">
+                    <!-- DISPONIBILIDADE -->
+                    <div class="monitoring-card gauge-card">
+                        <h3 class="card-title">DISPONIBILIDADE</h3>
+                        <div class="card-content">
+                            <div class="gauge-container">
+                                <div class="circular-gauge" id="disponibilidadeGauge">
+                                    <span class="gauge-value">0%</span>
+                                </div>
+                            </div>
+                            <div class="gauge-info">
+                                <div class="info-item">
+                                    <span class="info-label">Teórico:</span>
+                                    <span class="info-value">00:00:00</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Real:</span>
+                                    <span class="info-value">00:00:00</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Setup:</span>
+                                    <span class="info-value">00:00:00</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Status Setup:</span>
+                                    <span class="info-value blue-text">Aguardando Ordem</span>
+                                </div>
+                                <button class="btn-finalizar-setup" id="btnFinalizarSetup" style="display: none;">
+                                    <i class="fas fa-check-circle"></i>
+                                    Finalizar Setup
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PERFORMANCE -->
+                    <div class="monitoring-card gauge-card">
+                        <h3 class="card-title">PERFORMANCE</h3>
+                        <div class="card-content">
+                            <div class="gauge-container">
+                                <div class="circular-gauge" id="performanceGauge">
+                                    <span class="gauge-value">0.0%</span>
+                                </div>
+                            </div>
+                            <div class="gauge-info">
+                                <div class="info-item">
+                                    <span class="info-label">Teórico:</span>
+                                    <span class="info-value blue-text">0 peças</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Real:</span>
+                                    <span class="info-value blue-text">0 peças</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- QUALIDADE -->
+                    <div class="monitoring-card gauge-card">
+                        <h3 class="card-title">QUALIDADE</h3>
+                        <div class="card-content">
+                            <div class="gauge-container">
+                                <div class="circular-gauge" id="qualidadeGauge">
+                                    <span class="gauge-value">0%</span>
+                                </div>
+                            </div>
+                            <div class="gauge-info">
+                                <div class="info-item">
+                                    <span class="info-label">Peças Totais:</span>
+                                    <span class="info-value">0</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Peças Boas:</span>
+                                    <span class="info-value">0</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Peças Ruins:</span>
+                                    <span class="info-value">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Central - Registro de Descarte -->
+                <div class="dashboard-row center-row">
+                    <div class="monitoring-card descarte-card">
+                        <h3 class="card-title">Registro de Descarte</h3>
+                        <div class="card-content">
+                            <button class="btn-register-scrap">
+                                <i class="fas fa-square"></i>
+                                Registrar Descarte
+                            </button>
+                            <button class="btn-scrap-list">
+                                <i class="fas fa-list"></i>
+                                Lista de Descartes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para Criar Ordem de Produção -->
+    <div id="ordemProducaoModal" class="modal ordem-producao-modal">
+        <div class="modal-content ordem-producao-modal-content">
+            <div class="modal-header ordem-producao-header">
+                <h3>
+                    <i class="fas fa-industry"></i>
+                    Criar Ordem de Produção
+                </h3>
+                <button class="modal-close" id="closeOrdemModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body ordem-producao-body">
+                <form id="ordemProducaoForm" class="ordem-producao-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ordemProduto">
+                                <i class="fas fa-cube"></i>
+                                Produto *
+                            </label>
+                            <select id="ordemProduto" name="produto" required>
+                                <option value="">Nenhuma máquina associada ao usuário</option>
+                                <!-- Opções serão carregadas dinamicamente via JavaScript -->
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="ordemQuantidade">
+                                <i class="fas fa-hashtag"></i>
+                                # Quantidade *
+                            </label>
+                            <input type="number" id="ordemQuantidade" name="quantidade" min="1" required placeholder="Ex: 100">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ordemDataFim">
+                                <i class="fas fa-calendar"></i>
+                                Fim da Ordem
+                            </label>
+                            <input type="date" id="ordemDataFim" name="dataFim" placeholder="dd/mm/aaaa">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="ordemStatus">
+                                <i class="fas fa-toggle-on"></i>
+                                Status
+                            </label>
+                            <input type="text" id="ordemStatus" name="status" value="Em Produção" readonly class="readonly-input">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="ordemObservacoes">
+                            <i class="fas fa-sticky-note"></i>
+                            Observações
+                        </label>
+                        <textarea id="ordemObservacoes" name="observacoes" rows="3" placeholder="Observações sobre a ordem de produção..."></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancelOrdemModal">Cancelar</button>
+                        <button type="submit" class="btn-primary" id="salvarOrdemBtn">
+                            <i class="fas fa-save"></i>
+                            Criar Ordem
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Tabela de Ordens Existentes -->
+                <div class="ordens-table-container">
+                    <h4 class="ordens-table-title">
+                        <i class="fas fa-list"></i>
+                        Ordens de Produção - <span id="maquinaNomeOrdenacao"></span>
+                    </h4>
+                    <div class="ordens-table-wrapper">
+                        <table class="ordens-table">
+                            <thead>
+                                <tr>
+                                    <th>Número</th>
+                                    <th>Produto</th>
+                                    <th>Quantidade</th>
+                                    <th>Status</th>
+                                    <th>Fim da Ordem</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordensTableBody">
+                                <!-- As ordens serão carregadas dinamicamente -->
+                                <tr>
+                                    <td colspan="6" style="text-align: center; padding: 2rem; color: #6b7280;">
+                                        Carregando ordens...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Registrar Descarte -->
+    <div id="descarteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>
+                    <i class="fas fa-plus"></i>
+                    Registrar Descarte
+                </h3>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="descarteForm">
+                    <div class="form-group">
+                        <label for="modalMachine">Máquina *</label>
+                        <select id="modalMachine" required>
+                            <option value="">Selecione uma máquina</option>
+                            <!-- Opções serão carregadas dinamicamente via JavaScript -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="modalMotivo">Motivo do Descarte *</label>
+                        <select id="modalMotivo" required>
+                            <option value="">Selecione um motivo</option>
+                            <!-- Opções serão carregadas dinamicamente via JavaScript -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="modalQuantidade">Quantidade *</label>
+                        <input type="number" id="modalQuantidade" min="1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="modalSeveridade">Severidade *</label>
+                        <select id="modalSeveridade" required>
+                            <option value="">Selecione a severidade</option>
+                            <option value="baixa">Baixa</option>
+                            <option value="media">Média</option>
+                            <option value="alta">Alta</option>
+                            <option value="critica">Crítica</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="modalDescricao">Descrição</label>
+                        <textarea id="modalDescricao" rows="3" placeholder="Descrição adicional do descarte..."></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancelModal">Cancelar</button>
+                        <button type="submit" class="btn-primary">Registrar Descarte</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/permissions.js"></script>
+    <script src="js/page-permissions.js"></script>
+    <script src="js/visao-tempo-real.js"></script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema OEE - Sinal da Máquina</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sinal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/libs/chart.min.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-cog"></i>
+                    <span class="logo-text">MH Efficiency</span>
+                </div>
+                <h1 class="system-title">Sistema OEE</h1>
+                <p class="system-subtitle">Painel de Controle</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-compass"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-sistema.html" class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Configurações do Sistema</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="perfil.html" class="nav-link">
+                            <i class="fas fa-user"></i>
+                            <span>Perfil</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="usuarios.html" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Usuários</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="aprovacao-operadores.html" class="nav-link">
+                            <i class="fas fa-user-check"></i>
+                            <span>Aprovação de Operadores</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <hr class="nav-divider">
+                
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="paradas-maquina.html" class="nav-link">
+                            <i class="fas fa-circle"></i>
+                            <span>Paradas de Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="analise-producao.html" class="nav-link">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Análise de Produção</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-parada.html" class="nav-link">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Motivos de Parada</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-descarte.html" class="nav-link">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Motivos de Descarte</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="cadastro-produtos.html" class="nav-link">
+                            <i class="fas fa-box"></i>
+                            <span>Cadastro de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="produto-maquina.html" class="nav-link">
+                            <i class="fas fa-link"></i>
+                            <span>Produto x Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracao-produtos.html" class="nav-link">
+                            <i class="fas fa-wrench"></i>
+                            <span>Configurações de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-turno.html" class="nav-link">
+                            <i class="fas fa-clock"></i>
+                            <span>Configurações de Turno</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header-left">
+                    <h1 class="page-title">Sinal da Máquina</h1>
+                    <div class="status-message"></div>
+                </div>
+                <div class="user-info">
+                    <span class="username">Matheus</span>
+                    <i class="fas fa-user"></i>
+                    <button class="logout-btn">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Filtros -->
+                <section class="filters-section">
+                    <div class="filters-container">
+                        <div class="filter-group">
+                            <label for="machineFilter">Filtrar por Máquina:</label>
+                            <select id="machineFilter" class="filter-select">
+                                <option value="all">Todas as Máquinas</option>
+                            </select>
+                            <div class="filter-info" id="filterInfo" style="display: none;">
+                                <i class="fas fa-info-circle"></i>
+                                <span id="filterInfoText"></span>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label for="historyFilter">Período:</label>
+                            <select id="historyFilter" class="filter-select">
+                                <option value="hour">Última Hora</option>
+                                <option value="day">Último Dia</option>
+                                <option value="week">Última Semana</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="startDate">Data Inicial:</label>
+                            <input type="datetime-local" id="startDate" class="filter-input">
+                        </div>
+                        <div class="filter-group">
+                            <label for="endDate">Data Final:</label>
+                            <input type="datetime-local" id="endDate" class="filter-input">
+                        </div>
+                        <div class="filter-group">
+                            <button id="applyFilters" class="btn-primary">
+                                <i class="fas fa-filter"></i> Aplicar Filtros
+                            </button>
+                        </div>
+                        <div class="filter-group">
+                            <button id="refreshData" class="btn-refresh">
+                                <i class="fas fa-sync-alt"></i> Atualizar
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Cards de Métricas -->
+                <section class="metrics-section">
+                    <div class="metrics-grid">
+                        <!-- Status da Conexão -->
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>Status da Conexão</h3>
+                                <i class="fas fa-wifi"></i>
+                            </div>
+                            <div class="metric-value" id="connectionStatus">Carregando...</div>
+                            <div class="metric-label">Estado atual da conexão</div>
+                        </div>
+
+                        <!-- RSSI -->
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>RSSI</h3>
+                                <i class="fas fa-signal"></i>
+                            </div>
+                            <div class="metric-value" id="rssiValue">-- dBm</div>
+                            <div class="metric-label">Received Signal Strength Indicator</div>
+                        </div>
+
+                        <!-- SNR -->
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>SNR</h3>
+                                <i class="fas fa-wave-square"></i>
+                            </div>
+                            <div class="metric-value" id="snrValue">-- dB</div>
+                            <div class="metric-label">Signal-to-Noise Ratio</div>
+                        </div>
+
+                        <!-- Latência -->
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>Latência</h3>
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="metric-value" id="latencyValue">-- ms</div>
+                            <div class="metric-label">Tempo de resposta da rede</div>
+                        </div>
+
+                        <!-- Throughput -->
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>Throughput</h3>
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            <div class="metric-value" id="throughputValue">-- Mbps</div>
+                            <div class="metric-label">Taxa de transferência de dados</div>
+                        </div>
+
+                        <!-- Packet Loss -->
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>Packet Loss</h3>
+                                <i class="fas fa-exclamation-circle"></i>
+                            </div>
+                            <div class="metric-value" id="packetLossValue">-- %</div>
+                            <div class="metric-label">Perda de pacotes</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Gráfico de Rede -->
+                <section class="chart-section">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Evolução das Métricas de Rede</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="networkChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Alertas -->
+                <section class="alerts-section">
+                    <div class="alerts-card">
+                        <div class="alerts-header">
+                            <h3>Status de Alertas</h3>
+                            <div class="alert-status normal" id="alertStatus">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Carregando...</span>
+                            </div>
+                        </div>
+                        <div class="alerts-container" id="alertsContainer">
+                            <!-- Alertas serão adicionados dinamicamente -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Histórico Detalhado -->
+                <section class="history-section">
+                    <div class="history-header">
+                        <h2>Histórico de Dados de Sensor</h2>
+                        <div class="history-controls">
+                            <button id="exportPDF" class="btn-export">
+                                <i class="fas fa-file-pdf"></i> PDF
+                            </button>
+                            <button id="exportCSV" class="btn-export">
+                                <i class="fas fa-file-csv"></i> CSV
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="history-table-container">
+                        <table class="history-table" id="historyTable">
+                            <thead>
+                                <tr>
+                                    <th>Data/Hora</th>
+                                    <th>Máquina</th>
+                                    <th>Status</th>
+                                    <th>RSSI</th>
+                                    <th>SNR</th>
+                                    <th>Latência</th>
+                                    <th>Throughput</th>
+                                    <th>Packet Loss</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyTableBody">
+                                <tr>
+                                    <td colspan="8" class="empty-state">
+                                        <i class="fas fa-spinner fa-spin"></i>
+                                        <span>Carregando dados...</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="historyPagination" class="pagination" style="display: none;"></div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/libs/jspdf.umd.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/permissions.js"></script>
+    <script src="js/page-permissions.js"></script>
+    <script src="js/sinal-maquina.js"></script>
+</body>
+</html>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema OEE - Relatórios</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/relatorios.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/libs/chart.min.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-cog"></i>
+                    <span class="logo-text">MH Efficiency</span>
+                </div>
+                <h1 class="system-title">Sistema OEE</h1>
+                <p class="system-subtitle">Painel de Controle</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-compass"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-sistema.html" class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Configurações do Sistema</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="perfil.html" class="nav-link">
+                            <i class="fas fa-user"></i>
+                            <span>Perfil</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="usuarios.html" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Usuários</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="aprovacao-operadores.html" class="nav-link">
+                            <i class="fas fa-user-check"></i>
+                            <span>Aprovação de Operadores</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <hr class="nav-divider">
+                
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="paradas-maquina.html" class="nav-link">
+                            <i class="fas fa-circle"></i>
+                            <span>Paradas de Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="analise-producao.html" class="nav-link">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Análise de Produção</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-parada.html" class="nav-link">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Motivos de Parada</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-descarte.html" class="nav-link">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Motivos de Descarte</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="cadastro-produtos.html" class="nav-link">
+                            <i class="fas fa-box"></i>
+                            <span>Cadastro de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="produto-maquina.html" class="nav-link">
+                            <i class="fas fa-link"></i>
+                            <span>Produto x Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracao-produtos.html" class="nav-link">
+                            <i class="fas fa-wrench"></i>
+                            <span>Configurações de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-turno.html" class="nav-link">
+                            <i class="fas fa-clock"></i>
+                            <span>Configurações de Turno</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <hr class="nav-divider">
+                
+                <ul class="nav-list">
+                    <li class="nav-item active">
+                        <a href="relatorios.html" class="nav-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Relatórios</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="visao-tempo-real.html" class="nav-link">
+                            <i class="fas fa-desktop"></i>
+                            <span>Visão em Tempo Real</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header-left">
+                    <h1 class="page-title">Relatórios</h1>
+                </div>
+                <div class="user-info">
+                    <span class="username">Usuário</span>
+                    <i class="fas fa-user"></i>
+                    <button class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Relatórios Content -->
+            <div class="relatorios-content">
+                <!-- Seção de Filtros -->
+                <section class="filtros-section">
+                    <div class="filtros-container">
+                        <h2 class="filtros-title">Filtros</h2>
+                        <div class="filtros-grid">
+                            <div class="filtro-group">
+                                <label for="periodoFilter">Período</label>
+                                <select id="periodoFilter" class="filtro-select">
+                                    <option value="30">Últimos 30 dias</option>
+                                    <option value="7">Últimos 7 dias</option>
+                                    <option value="90">Últimos 90 dias</option>
+                                    <option value="month">Este mês</option>
+                                    <option value="year">Este ano</option>
+                                </select>
+                            </div>
+                            <div class="filtro-group">
+                                <label for="maquinaFilter">Máquina</label>
+                                <select id="maquinaFilter" class="filtro-select">
+                                    <option value="all">Todas</option>
+                                </select>
+                            </div>
+                            <div class="filtro-group">
+                                <label for="indicadorFilter">Indicador</label>
+                                <select id="indicadorFilter" class="filtro-select">
+                                    <option value="OEE">OEE</option>
+                                    <option value="Disponibilidade">Disponibilidade</option>
+                                    <option value="Performance">Performance</option>
+                                    <option value="Qualidade">Qualidade</option>
+                                </select>
+                            </div>
+                            <div class="filtro-group">
+                                <label for="agruparFilter">Agrupar por</label>
+                                <select id="agruparFilter" class="filtro-select">
+                                    <option value="dia">Dia</option>
+                                    <option value="semana">Semana</option>
+                                    <option value="mes" selected>Mês</option>
+                                    <option value="ano">Ano</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="filtros-actions">
+                            <button id="limparFiltros" class="btn-secundario">
+                                <i class="fas fa-eraser"></i>
+                                Limpar
+                            </button>
+                            <button id="aplicarFiltros" class="btn-primario">
+                                <i class="fas fa-check"></i>
+                                Aplicar
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Cards de Relatórios Pré-definidos -->
+                <section class="relatorios-cards-section">
+                    <div class="relatorios-cards-grid">
+                        <!-- Card 1: Evolução do OEE -->
+                        <div class="relatorio-card">
+                            <h3 class="relatorio-card-title">Evolução do OEE</h3>
+                            <p class="relatorio-card-desc">
+                                Análise da evolução do indicador OEE ao longo do tempo, permitindo identificar tendências e padrões.
+                            </p>
+                            <div class="relatorio-card-actions">
+                                <button class="btn-visualizar" data-relatorio="oee-evolucao">
+                                    <i class="fas fa-eye"></i>
+                                    Visualizar
+                                </button>
+                                <button class="btn-exportar" data-relatorio="oee-evolucao" data-tipo="export">
+                                    <i class="fas fa-download"></i>
+                                    Exportar
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Análise de Paradas -->
+                        <div class="relatorio-card">
+                            <h3 class="relatorio-card-title">Análise de Paradas</h3>
+                            <p class="relatorio-card-desc">
+                                Relatório detalhado das paradas de máquinas, categorização e impacto na disponibilidade.
+                            </p>
+                            <div class="relatorio-card-actions">
+                                <button class="btn-visualizar" data-relatorio="paradas">
+                                    <i class="fas fa-eye"></i>
+                                    Visualizar
+                                </button>
+                                <button class="btn-exportar" data-relatorio="paradas" data-tipo="export">
+                                    <i class="fas fa-download"></i>
+                                    Exportar
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Desempenho por Máquina -->
+                        <div class="relatorio-card">
+                            <h3 class="relatorio-card-title">Desempenho por Máquina</h3>
+                            <p class="relatorio-card-desc">
+                                Comparativo entre o desempenho de diferentes máquinas, destacando pontos fortes e fracos.
+                            </p>
+                            <div class="relatorio-card-actions">
+                                <button class="btn-visualizar" data-relatorio="desempenho-maquina">
+                                    <i class="fas fa-eye"></i>
+                                    Visualizar
+                                </button>
+                                <button class="btn-exportar" data-relatorio="desempenho-maquina" data-tipo="export">
+                                    <i class="fas fa-download"></i>
+                                    Exportar
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: Perdas de Produção -->
+                        <div class="relatorio-card">
+                            <h3 class="relatorio-card-title">Perdas de Produção</h3>
+                            <p class="relatorio-card-desc">
+                                Quantificação das perdas de produção relacionadas a cada componente do OEE.
+                            </p>
+                            <div class="relatorio-card-actions">
+                                <button class="btn-visualizar" data-relatorio="perdas-producao">
+                                    <i class="fas fa-eye"></i>
+                                    Visualizar
+                                </button>
+                                <button class="btn-exportar" data-relatorio="perdas-producao" data-tipo="export">
+                                    <i class="fas fa-download"></i>
+                                    Exportar
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Card 5: Gestão Logística -->
+                        <div class="relatorio-card">
+                            <h3 class="relatorio-card-title">Gestão Logística</h3>
+                            <p class="relatorio-card-desc">
+                                Análise do fluxo de materiais e impacto no planejamento de produção.
+                            </p>
+                            <div class="relatorio-card-actions">
+                                <button class="btn-visualizar" data-relatorio="logistica">
+                                    <i class="fas fa-eye"></i>
+                                    Visualizar
+                                </button>
+                                <button class="btn-exportar" data-relatorio="logistica" data-tipo="export">
+                                    <i class="fas fa-download"></i>
+                                    Exportar
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Card 6: Ordens de Produção -->
+                        <div class="relatorio-card">
+                            <h3 class="relatorio-card-title">Ordens de Produção</h3>
+                            <p class="relatorio-card-desc">
+                                Status e eficiência das ordens de produção em andamento e finalizadas.
+                            </p>
+                            <div class="relatorio-card-actions">
+                                <button class="btn-visualizar" data-relatorio="ordens-producao">
+                                    <i class="fas fa-eye"></i>
+                                    Visualizar
+                                </button>
+                                <button class="btn-exportar" data-relatorio="ordens-producao" data-tipo="export">
+                                    <i class="fas fa-download"></i>
+                                    Exportar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Seção de Relatório Personalizado -->
+                <section class="relatorio-personalizado-section">
+                    <div class="relatorio-personalizado-container">
+                        <h2 class="relatorio-personalizado-title">Relatório Personalizado</h2>
+                        <p class="relatorio-personalizado-desc">
+                            Selecione os indicadores que deseja incluir no seu relatório personalizado
+                        </p>
+                        <div class="indicadores-checkboxes">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="indOEE" checked>
+                                <span>OEE</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="indDisponibilidade" checked>
+                                <span>Disponibilidade</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="indPerformance" checked>
+                                <span>Performance</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="indQualidade" checked>
+                                <span>Qualidade</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="indParadas">
+                                <span>Paradas</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="indProducao">
+                                <span>Produção</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="indLogistica">
+                                <span>Logística</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="indRejeitos">
+                                <span>Rejeitos</span>
+                            </label>
+                        </div>
+                        <div class="relatorio-personalizado-actions">
+                            <button id="limparPersonalizado" class="btn-secundario">
+                                <i class="fas fa-eraser"></i>
+                                Limpar
+                            </button>
+                            <button id="gerarRelatorioPersonalizado" class="btn-primario">
+                                <i class="fas fa-file-alt"></i>
+                                Gerar Relatório
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para Visualizar Relatório -->
+    <div id="modalRelatorio" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitulo">Relatório</h2>
+                <button class="modal-close" id="fecharModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Conteúdo do relatório será inserido aqui -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/permissions.js"></script>
+    <script src="js/page-permissions.js"></script>
+    <script src="js/libs/jspdf.umd.min.js"></script>
+    <script src="js/libs/html2canvas.min.js"></script>
+    <script src="js/relatorios.js"></script>
+</body>
+</html>
+

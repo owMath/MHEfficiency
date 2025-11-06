@@ -1,0 +1,238 @@
+/* CSS específico para página de usuários - apenas para ajustar cores do modal de edição */
+
+/* Título "Gestão de Usuários" - cor preta */
+.section-header h2 {
+    color: #000000 !important;
+}
+
+/* Modal de edição de usuário - ajustes de cores */
+#editUserModal .modal-header {
+    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%) !important;
+    color: white !important;
+    border-radius: 12px 12px 0 0;
+}
+
+#editUserModal .modal-header h3 {
+    color: white !important;
+    font-weight: 600;
+}
+
+#editUserModal .modal-header p {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Ícone do modal de edição */
+#editUserModal .modal-header .modal-icon {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+    color: white !important;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Botão de fechar do modal */
+#editUserModal .modal-close {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+#editUserModal .modal-close:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+}
+
+/* Botões do modal */
+#editUserModal .btn-primary {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+    color: white !important;
+    border: none !important;
+    transition: all 0.3s ease;
+}
+
+#editUserModal .btn-primary:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+#editUserModal .btn-secondary {
+    background: #6b7280 !important;
+    color: white !important;
+    border: none !important;
+    transition: all 0.3s ease;
+}
+
+#editUserModal .btn-secondary:hover {
+    background: #4b5563 !important;
+    transform: translateY(-1px);
+}
+
+/* Campos do formulário */
+#editUserModal .form-group input:focus,
+#editUserModal .form-group select:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+}
+
+/* Informação da máquina */
+#editUserModal .machine-info {
+    background: #f0f9ff !important;
+    border: 1px solid #0ea5e9 !important;
+    color: #0369a1 !important;
+}
+
+#editUserModal .machine-info i {
+    color: #0ea5e9 !important;
+}
+
+/* Labels dos campos */
+#editUserModal .form-group label {
+    color: #374151 !important;
+    font-weight: 600;
+}
+
+#editUserModal .form-group label i {
+    color: #6b7280 !important;
+    margin-right: 0.5rem;
+}
+
+/* Modal de permissões - mesmas cores harmoniosas */
+#permissionsModal .modal-header {
+    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%) !important;
+    color: white !important;
+    border-radius: 12px 12px 0 0;
+}
+
+#permissionsModal .modal-header h3 {
+    color: white !important;
+    font-weight: 600;
+}
+
+#permissionsModal .modal-close {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+#permissionsModal .modal-close:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+}
+
+/* Botões do modal de permissões */
+#permissionsModal .btn-primary {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+    color: white !important;
+    border: none !important;
+    transition: all 0.3s ease;
+}
+
+#permissionsModal .btn-primary:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+#permissionsModal .btn-secondary {
+    background: #6b7280 !important;
+    color: white !important;
+    border: none !important;
+    transition: all 0.3s ease;
+}
+
+#permissionsModal .btn-secondary:hover {
+    background: #4b5563 !important;
+    transform: translateY(-1px);
+}
+
+/* Texto do modal de permissões */
+#permissionsModal .modal-body p {
+    color: #6b7280 !important;
+}
+
+/* Modal de confirmação - mesmas cores harmoniosas */
+#confirmModal .modal-header {
+    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%) !important;
+    color: white !important;
+    border-radius: 12px 12px 0 0;
+}
+
+#confirmModal .modal-header h3 {
+    color: white !important;
+    font-weight: 600;
+}
+
+#confirmModal .modal-close {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+#confirmModal .modal-close:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+}
+
+/* Botões do modal de confirmação */
+#confirmModal .btn-primary {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+    color: white !important;
+    border: none !important;
+    transition: all 0.3s ease;
+}
+
+#confirmModal .btn-primary:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+#confirmModal .btn-secondary {
+    background: #6b7280 !important;
+    color: white !important;
+    border: none !important;
+    transition: all 0.3s ease;
+}
+
+#confirmModal .btn-secondary:hover {
+    background: #4b5563 !important;
+    transform: translateY(-1px);
+}
+
+/* Texto do modal de confirmação */
+#confirmModal .modal-body p {
+    color: #6b7280 !important;
+}
+
+/* Responsividade para os modais */
+@media (max-width: 768px) {
+    #editUserModal .modal-content,
+    #permissionsModal .modal-content,
+    #confirmModal .modal-content {
+        width: 95% !important;
+        margin: 1rem !important;
+    }
+    
+    #editUserModal .form-actions,
+    #permissionsModal .modal-footer,
+    #confirmModal .modal-footer {
+        flex-direction: column !important;
+    }
+    
+    #editUserModal .btn-primary,
+    #editUserModal .btn-secondary,
+    #permissionsModal .btn-primary,
+    #permissionsModal .btn-secondary,
+    #confirmModal .btn-primary,
+    #confirmModal .btn-secondary {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+}

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema OEE - Informações da Empresa</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-cog"></i>
+                    <span class="logo-text">MH Efficiency</span>
+                </div>
+                <h1 class="system-title">Sistema OEE</h1>
+                <p class="system-subtitle">Painel de Controle</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-compass"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="configuracoes-sistema.html" class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Configurações do Sistema</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="perfil.html" class="nav-link">
+                            <i class="fas fa-user"></i>
+                            <span>Perfil</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="usuarios.html" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Usuários</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <hr class="nav-divider">
+                
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="paradas-maquina.html" class="nav-link">
+                            <i class="fas fa-circle"></i>
+                            <span>Paradas de Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="analise-producao.html" class="nav-link">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Análise de Produção</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-parada.html" class="nav-link">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Motivos de Parada</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-descarte.html" class="nav-link">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Motivos de Descarte</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="cadastro-produtos.html" class="nav-link">
+                            <i class="fas fa-box"></i>
+                            <span>Cadastro de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="produto-maquina.html" class="nav-link">
+                            <i class="fas fa-link"></i>
+                            <span>Produto x Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracao-produtos.html" class="nav-link">
+                            <i class="fas fa-wrench"></i>
+                            <span>Configurações de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-turno.html" class="nav-link">
+                            <i class="fas fa-clock"></i>
+                            <span>Configurações de Turno</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header-left">
+                    <h1 class="page-title">Informações da Empresa</h1>
+                    <div class="status-message"></div>
+                </div>
+                <div class="user-info">
+                    <span class="username">Matheus</span>
+                    <i class="fas fa-user"></i>
+                    <button class="logout-btn">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Configurações Content -->
+            <div class="dashboard-content">
+                <!-- Informações Principais -->
+                <section class="config-section">
+                    <div class="config-card">
+                        <div class="config-header">
+                            <i class="fas fa-building"></i>
+                            <h2>Informações Principais</h2>
+                        </div>
+                        <div class="config-body">
+                            <div class="form-group">
+                                <label for="empresa-nome">Nome da Empresa</label>
+                                <input type="text" id="empresa-nome" placeholder="Digite o nome da empresa">
+                            </div>
+                            <div class="form-group">
+                                <label for="empresa-cnpj">CNPJ</label>
+                                <input type="text" id="empresa-cnpj" placeholder="00.000.000/0000-00">
+                            </div>
+                            <div class="form-group">
+                                <label for="empresa-razao-social">Razão Social</label>
+                                <input type="text" id="empresa-razao-social" placeholder="Digite a razão social">
+                            </div>
+                            <div class="form-group">
+                                <label for="moeda-padrao">Moeda Padrão</label>
+                                <select id="moeda-padrao">
+                                    <option value="BRL">Real (R$)</option>
+                                    <option value="USD">Dólar Americano ($)</option>
+                                    <option value="EUR">Euro (€)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Endereço -->
+                <section class="config-section">
+                    <div class="config-card">
+                        <div class="config-header">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <h2>Endereço</h2>
+                        </div>
+                        <div class="config-body">
+                            <div class="form-group">
+                                <label for="empresa-cep">CEP</label>
+                                <input type="text" id="empresa-cep" placeholder="00000-000">
+                            </div>
+                            <div class="form-group">
+                                <label for="empresa-endereco">Endereço</label>
+                                <input type="text" id="empresa-endereco" placeholder="Rua, Avenida, etc.">
+                            </div>
+                            <div class="form-group">
+                                <label for="empresa-numero">Número</label>
+                                <input type="text" id="empresa-numero" placeholder="123">
+                            </div>
+                            <div class="form-group">
+                                <label for="empresa-bairro">Bairro</label>
+                                <input type="text" id="empresa-bairro" placeholder="Nome do bairro">
+                            </div>
+                            <div class="form-group">
+                                <label for="empresa-cidade">Cidade</label>
+                                <input type="text" id="empresa-cidade" placeholder="Nome da cidade">
+                            </div>
+                            <div class="form-group">
+                                <label for="empresa-estado">Estado</label>
+                                <select id="empresa-estado">
+                                    <option value="">Selecione o estado</option>
+                                    <option value="AC">Acre</option>
+                                    <option value="AL">Alagoas</option>
+                                    <option value="AP">Amapá</option>
+                                    <option value="AM">Amazonas</option>
+                                    <option value="BA">Bahia</option>
+                                    <option value="CE">Ceará</option>
+                                    <option value="DF">Distrito Federal</option>
+                                    <option value="ES">Espírito Santo</option>
+                                    <option value="GO">Goiás</option>
+                                    <option value="MA">Maranhão</option>
+                                    <option value="MT">Mato Grosso</option>
+                                    <option value="MS">Mato Grosso do Sul</option>
+                                    <option value="MG">Minas Gerais</option>
+                                    <option value="PA">Pará</option>
+                                    <option value="PB">Paraíba</option>
+                                    <option value="PR">Paraná</option>
+                                    <option value="PE">Pernambuco</option>
+                                    <option value="PI">Piauí</option>
+                                    <option value="RJ">Rio de Janeiro</option>
+                                    <option value="RN">Rio Grande do Norte</option>
+                                    <option value="RS">Rio Grande do Sul</option>
+                                    <option value="RO">Rondônia</option>
+                                    <option value="RR">Roraima</option>
+                                    <option value="SC">Santa Catarina</option>
+                                    <option value="SP">São Paulo</option>
+                                    <option value="SE">Sergipe</option>
+                                    <option value="TO">Tocantins</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contato -->
+                <section class="config-section">
+                    <div class="config-card">
+                        <div class="config-header">
+                            <i class="fas fa-phone"></i>
+                            <h2>Contato</h2>
+                        </div>
+                        <div class="config-body">
+                            <div class="form-group">
+                                <label for="empresa-telefone">Telefone</label>
+                                <input type="text" id="empresa-telefone" placeholder="(00) 0000-0000">
+                            </div>
+                            <div class="form-group">
+                                <label for="empresa-celular">Celular</label>
+                                <input type="text" id="empresa-celular" placeholder="(00) 00000-0000">
+                            </div>
+                            <div class="form-group">
+                                <label for="empresa-email">E-mail</label>
+                                <input type="email" id="empresa-email" placeholder="contato@empresa.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="empresa-website">Website</label>
+                                <input type="url" id="empresa-website" placeholder="https://www.empresa.com">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Botões de Ação -->
+                <div class="config-actions">
+                    <button class="btn-cancel" id="btn-cancel">Cancelar</button>
+                    <button class="btn-save" id="btn-save">Salvar Informações</button>
+                    <button class="btn-reset" id="btn-reset">Resetar Padrões</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+    <script src="js/permissions.js"></script>
+    <script src="js/page-permissions.js"></script>
+    <script src="js/api-test.js"></script>
+    <script src="js/fix-user-status.js"></script>
+    <script src="js/informacoes-empresa.js"></script>
+</body>
+</html>

@@ -1,0 +1,853 @@
+/* ===== ESTILOS ESPECÍFICOS PARA GESTÃO DE LOGÍSTICA ===== */
+
+/* Seções de logística */
+.logistica-section {
+    margin-bottom: 2rem;
+}
+
+.logistica-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    transition: box-shadow 0.3s ease;
+}
+
+.logistica-card:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.logistica-card-header {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: white;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logistica-card-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.02em;
+}
+
+.card-header-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.btn-secondary-small,
+.btn-danger-small {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+}
+
+.btn-secondary-small {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary-small:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+.btn-danger-small {
+    background-color: rgba(239, 68, 68, 0.8);
+}
+
+.btn-danger-small:hover {
+    background-color: rgba(239, 68, 68, 1);
+    transform: translateY(-1px);
+}
+
+.logistica-card-body {
+    padding: 2rem;
+    min-height: 300px;
+}
+
+/* Estados vazios */
+.empty-state-logistica,
+.ok-state-logistica {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #6b7280;
+}
+
+.empty-state-logistica i,
+.ok-state-logistica i {
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.3;
+    color: #9ca3af;
+}
+
+.empty-state-logistica h3,
+.ok-state-logistica h3 {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+.empty-state-logistica p,
+.ok-state-logistica p {
+    margin: 0 0 2rem 0;
+    font-size: 1rem;
+    color: #6b7280;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ok-state-logistica i {
+    color: #10b981;
+    opacity: 0.6;
+}
+
+/* Botão primário de logística */
+.btn-primary-logistica {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: white;
+    border: none;
+    padding: 0.875rem 2rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.btn-primary-logistica:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5);
+}
+
+.btn-add-item {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 1rem;
+}
+
+.btn-add-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+/* Lista de itens do estoque */
+.itens-estoque-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.item-estoque-card {
+    background: #f9fafb;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.item-estoque-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+.item-estoque-card:hover::before {
+    transform: scaleY(1);
+}
+
+.item-estoque-card:hover {
+    border-color: #3b82f6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+.item-estoque-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.item-estoque-codigo {
+    font-size: 0.75rem;
+    color: #6b7280;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.item-estoque-acoes {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-edit-item,
+.btn-delete-item {
+    padding: 0.375rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.875rem;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-edit-item {
+    background-color: #fbbf24;
+    color: white;
+}
+
+.btn-edit-item:hover {
+    background-color: #f59e0b;
+}
+
+.btn-delete-item {
+    background-color: #ef4444;
+    color: white;
+}
+
+.btn-delete-item:hover {
+    background-color: #dc2626;
+}
+
+.item-estoque-nome {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.item-estoque-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.item-estoque-quantidade {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+}
+
+.quantidade-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.quantidade-badge.normal {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.quantidade-badge.baixo {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.quantidade-badge.alto {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+/* Lista de itens que precisam de atenção */
+.itens-atencao-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.item-atencao-card {
+    background: #fef2f2;
+    border-left: 4px solid #ef4444;
+    border-radius: 8px;
+    padding: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.item-atencao-card:hover {
+    background: #fee2e2;
+    transform: translateX(4px);
+}
+
+.item-atencao-info {
+    flex: 1;
+}
+
+.item-atencao-nome {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.25rem;
+}
+
+.item-atencao-motivo {
+    font-size: 0.875rem;
+    color: #991b1b;
+    font-weight: 500;
+}
+
+.motivo-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-left: 0.5rem;
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+/* Lista de solicitações de compra */
+.solicitacoes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.solicitacao-card {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.solicitacao-card:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+}
+
+.solicitacao-info {
+    flex: 1;
+}
+
+.solicitacao-item-nome {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.25rem;
+}
+
+.solicitacao-detalhes {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.5rem;
+}
+
+.solicitacao-status {
+    padding: 0.375rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.solicitacao-status.pendente {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.solicitacao-status.aprovada {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+.solicitacao-status.em_compra {
+    background-color: #e0e7ff;
+    color: #3730a3;
+}
+
+.solicitacao-status.recebida {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.solicitacao-status.cancelada {
+    background-color: #f3f4f6;
+    color: #6b7280;
+}
+
+/* Modais */
+.modal-logistica {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+}
+
+.modal-logistica.show {
+    display: flex;
+}
+
+.modal-content-logistica {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+    max-width: 900px;
+    width: 95%;
+    max-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    animation: modalSlideIn 0.3s ease;
+}
+
+.modal-content-logistica.modal-small {
+    max-width: 500px;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-header-logistica {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: white;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 16px 16px 0 0;
+}
+
+.modal-header-logistica h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+}
+
+.modal-close-logistica {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close-logistica:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.modal-body-logistica {
+    padding: 1.5rem 2rem;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+}
+
+.modal-footer-logistica {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    padding: 1.25rem 2rem;
+    border-top: 1px solid #e5e7eb;
+    background: #f9fafb;
+    border-radius: 0 0 16px 16px;
+    flex-shrink: 0;
+}
+
+/* Formulário no modal */
+.form-row-logistica {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form-row-logistica:last-of-type {
+    margin-bottom: 0;
+}
+
+/* Quando uma linha tem apenas 1 campo, ocupa apenas 1 coluna */
+.form-row-logistica:has(> .form-group-logistica:only-child) {
+    grid-template-columns: 1fr;
+    max-width: calc(33.333% + 2rem);
+}
+
+.form-group-logistica {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group-logistica.required label::after {
+    content: ' *';
+    color: #ef4444;
+}
+
+.form-group-logistica label {
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.form-group-logistica input,
+.form-group-logistica select,
+.form-group-logistica textarea {
+    padding: 0.75rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    background: white;
+    font-family: inherit;
+}
+
+.form-group-logistica input:focus,
+.form-group-logistica select:focus,
+.form-group-logistica textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-group-logistica textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Campos de texto longos que não estão em rows ocupam toda largura */
+.modal-body-logistica > .form-group-logistica {
+    margin-bottom: 1rem;
+}
+
+.modal-body-logistica > .form-group-logistica:last-child {
+    margin-bottom: 0;
+}
+
+/* Campo com informação adicional */
+.input-hint-logistica {
+    display: block;
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+    font-style: italic;
+}
+
+.form-group-logistica input[readonly] {
+    background-color: #f8fafc;
+    color: #374151;
+    cursor: not-allowed;
+    border-color: #d1d5db;
+}
+
+.form-group-logistica input[readonly]:focus {
+    border-color: #d1d5db;
+    box-shadow: none;
+}
+
+.form-actions-logistica {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+    flex-shrink: 0;
+}
+
+.btn-success-logistica {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border: none;
+    padding: 0.875rem 2rem;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.btn-success-logistica:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.btn-secondary-logistica {
+    background-color: #6b7280;
+    color: white;
+    border: none;
+    padding: 0.875rem 2rem;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.btn-secondary-logistica:hover {
+    background-color: #4b5563;
+    transform: translateY(-1px);
+}
+
+.btn-danger-logistica {
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    padding: 0.875rem 2rem;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.875rem;
+}
+
+.btn-danger-logistica:hover {
+    background-color: #dc2626;
+    transform: translateY(-1px);
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    .form-row-logistica {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .logistica-card-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .card-header-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .logistica-card-body {
+        padding: 1.5rem;
+    }
+
+    .itens-estoque-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row-logistica {
+        grid-template-columns: 1fr;
+    }
+
+    .solicitacao-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .solicitacao-detalhes {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .modal-content-logistica {
+        width: 95%;
+        margin: 0.5rem;
+        max-height: 98vh;
+    }
+
+    .modal-body-logistica {
+        padding: 1rem 1.25rem;
+    }
+
+    .modal-footer-logistica {
+        padding: 1rem 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .logistica-card-header {
+        padding: 1rem;
+    }
+
+    .logistica-card-header h2 {
+        font-size: 1.25rem;
+    }
+
+    .empty-state-logistica,
+    .ok-state-logistica {
+        padding: 2rem 1rem;
+    }
+
+    .empty-state-logistica i,
+    .ok-state-logistica i {
+        font-size: 3.5rem;
+    }
+
+    .form-actions-logistica {
+        flex-direction: column;
+    }
+
+    .btn-success-logistica,
+    .btn-secondary-logistica {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Botão Solicitar Compra */
+.btn-solicitar-compra {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border: none;
+    padding: 0.625rem 1.25rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+.btn-solicitar-compra:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+}
+
+.btn-solicitar-compra:active {
+    transform: translateY(0);
+}
+
+/* Caixa de informações do item no modal */
+.item-info-box {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.item-info-box h4 {
+    margin: 0 0 1rem 0;
+    color: #1f2937;
+    font-size: 1.125rem;
+    font-weight: 600;
+    border-bottom: 2px solid #3b82f6;
+    padding-bottom: 0.5rem;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.info-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.info-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+@media (max-width: 768px) {
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .btn-solicitar-compra {
+        font-size: 0.75rem;
+        padding: 0.5rem 1rem;
+    }
+}
+

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema OEE - Vínculo Produto-Máquina</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/produto-maquina.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-cog"></i>
+                    <span class="logo-text">MH Efficiency</span>
+                </div>
+                <h1 class="system-title">Sistema OEE</h1>
+                <p class="system-subtitle">Painel de Controle</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-compass"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-sistema.html" class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Configurações do Sistema</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="perfil.html" class="nav-link">
+                            <i class="fas fa-user"></i>
+                            <span>Perfil</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="usuarios.html" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Usuários</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="aprovacao-operadores.html" class="nav-link">
+                            <i class="fas fa-user-check"></i>
+                            <span>Aprovação de Operadores</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <hr class="nav-divider">
+                
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="paradas-maquina.html" class="nav-link">
+                            <i class="fas fa-circle"></i>
+                            <span>Paradas de Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="analise-producao.html" class="nav-link">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Análise de Produção</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-parada.html" class="nav-link">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Motivos de Parada</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-descarte.html" class="nav-link">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Motivos de Descarte</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="cadastro-produtos.html" class="nav-link">
+                            <i class="fas fa-box"></i>
+                            <span>Cadastro de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="produto-maquina.html" class="nav-link">
+                            <i class="fas fa-link"></i>
+                            <span>Produto x Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracao-produtos.html" class="nav-link">
+                            <i class="fas fa-wrench"></i>
+                            <span>Configurações de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-turno.html" class="nav-link">
+                            <i class="fas fa-clock"></i>
+                            <span>Configurações de Turno</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header-left">
+                    <h1 class="page-title">
+                        Vínculo Produto-Máquina
+                    </h1>
+                    <div class="status-message"></div>
+                </div>
+                <div class="user-info">
+                    <span class="username">Matheus</span>
+                    <i class="fas fa-user"></i>
+                    <button class="logout-btn">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="dashboard-content">
+                <!-- Seção Novo Vínculo -->
+                <section class="form-section">
+                    <div class="form-card">
+                        <div class="form-header">
+                            <i class="fas fa-plus"></i>
+                            <h3>Novo Vínculo Produto-Máquina</h3>
+                        </div>
+                        <div class="form-content">
+                            <form id="vinculoForm" class="vinculo-form">
+                                <!-- Seleção de Produto e Máquina -->
+                                <div class="form-row">
+                                    <div class="form-group required">
+                                        <label for="produtoSelecionado">
+                                            <i class="fas fa-box"></i>
+                                            Produto
+                                        </label>
+                                        <select id="produtoSelecionado" name="produtoSelecionado" required>
+                                            <option value="">Selecione um produto</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="maquinaSelecionada">
+                                            <i class="fas fa-cog"></i>
+                                            Máquina
+                                        </label>
+                                        <select id="maquinaSelecionada" name="maquinaSelecionada" readonly>
+                                            <option value="">Máquina será definida automaticamente</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Especificações Técnicas -->
+                                <div class="specs-section">
+                                    <div class="section-header">
+                                        <i class="fas fa-cogs"></i>
+                                        <h4>Especificações Técnicas</h4>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="tempoCiclo">
+                                                <i class="fas fa-clock"></i>
+                                                Tempo de Ciclo (seg)
+                                            </label>
+                                            <input type="number" id="tempoCiclo" name="tempoCiclo" step="1" min="0" value="0" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="tempoSetup">
+                                                <i class="fas fa-wrench"></i>
+                                                Tempo de Setup (seg)
+                                            </label>
+                                            <input type="number" id="tempoSetup" name="tempoSetup" step="1" min="0" value="0" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="producaoIdeal">
+                                                <i class="fas fa-chart-line"></i>
+                                                Produção Ideal (unidades/hora)
+                                            </label>
+                                            <input type="number" id="producaoIdeal" name="producaoIdeal" min="0" value="0" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Observações -->
+                                <div class="observations-section">
+                                    <div class="section-header">
+                                        <i class="fas fa-sticky-note"></i>
+                                        <h4>Observações</h4>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="observacoes">Observações adicionais</label>
+                                        <textarea id="observacoes" name="observacoes" placeholder="Observações adicionais"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="button" id="limparFormulario" class="btn-secondary">
+                                        <i class="fas fa-broom"></i>
+                                        Limpar
+                                    </button>
+                                    <button type="submit" class="btn-success">
+                                        <i class="fas fa-save"></i>
+                                        Salvar Vínculo
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Seção Vínculos Existentes -->
+                <section class="table-section">
+                    <div class="table-card">
+                        <div class="table-header">
+                            <h3>
+                                <i class="fas fa-list"></i>
+                                Vínculos Existentes
+                            </h3>
+                            <div class="table-actions">
+                                <div class="search-group">
+                                    <input type="text" id="searchVinculos" placeholder="Buscar vínculos...">
+                                    <button id="buscarVinculos" class="btn-primary">
+                                        <i class="fas fa-search"></i>
+                                        Buscar
+                                    </button>
+                                </div>
+                                <button id="atualizarVinculos" class="btn-secondary">
+                                    <i class="fas fa-sync-alt"></i>
+                                    Atualizar
+                                </button>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table" id="vinculosTable">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <i class="fas fa-box"></i>
+                                            Produto
+                                        </th>
+                                        <th>
+                                            <i class="fas fa-cog"></i>
+                                            Máquina
+                                        </th>
+                                        <th>
+                                            <i class="fas fa-clock"></i>
+                                            Ciclo (seg)
+                                        </th>
+                                        <th>
+                                            <i class="fas fa-wrench"></i>
+                                            Setup (seg)
+                                        </th>
+                                        <th>
+                                            <i class="fas fa-chart-line"></i>
+                                            Ideal (unid/h)
+                                        </th>
+                                        <th>
+                                            <i class="fas fa-sticky-note"></i>
+                                            Observações
+                                        </th>
+                                        <th>
+                                            <i class="fas fa-cogs"></i>
+                                            Ações
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="vinculosTableBody">
+                                    <!-- Vínculos serão carregados aqui via JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination" id="pagination">
+                            <!-- Paginação será gerada aqui -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal de confirmação -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Confirmar Ação</h3>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="modalMessage">Tem certeza que deseja realizar esta ação?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelAction">Cancelar</button>
+                <button class="btn-danger" id="confirmAction">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de carregamento -->
+    <div id="loadingModal" class="modal">
+        <div class="modal-content">
+            <div class="loading-spinner"></div>
+            <p>Processando...</p>
+        </div>
+    </div>
+
+    <!-- Modal de mensagem -->
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <div class="message-icon">
+                <i id="messageIcon" class="fas fa-check-circle"></i>
+            </div>
+            <h3 id="messageTitle">Sucesso</h3>
+            <p id="messageText">Operação realizada com sucesso!</p>
+            <button id="messageClose" class="btn-primary">OK</button>
+        </div>
+    </div>
+
+    <script src="js/produto-maquina.js"></script>
+    <script src="js/permissions.js"></script>
+    <script src="js/page-permissions.js"></script>
+</body>
+</html>

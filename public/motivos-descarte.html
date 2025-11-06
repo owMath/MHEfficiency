@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema OEE - Motivos de Descarte</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/motivos-descarte.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-cog"></i>
+                    <span class="logo-text">MH Efficiency</span>
+                </div>
+                <h1 class="system-title">Sistema OEE</h1>
+                <p class="system-subtitle">Painel de Controle</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-compass"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-sistema.html" class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Configurações do Sistema</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="perfil.html" class="nav-link">
+                            <i class="fas fa-user"></i>
+                            <span>Perfil</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="usuarios.html" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Usuários</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <hr class="nav-divider">
+                
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="paradas-maquina.html" class="nav-link">
+                            <i class="fas fa-circle"></i>
+                            <span>Paradas de Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="analise-producao.html" class="nav-link">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Análise de Produção</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-parada.html" class="nav-link">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Motivos de Parada</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="motivos-descarte.html" class="nav-link">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Motivos de Descarte</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="cadastro-produtos.html" class="nav-link">
+                            <i class="fas fa-box"></i>
+                            <span>Cadastro de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="produto-maquina.html" class="nav-link">
+                            <i class="fas fa-link"></i>
+                            <span>Produto x Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracao-produtos.html" class="nav-link">
+                            <i class="fas fa-wrench"></i>
+                            <span>Configurações de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-turno.html" class="nav-link">
+                            <i class="fas fa-clock"></i>
+                            <span>Configurações de Turno</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header-left">
+                    <h1 class="page-title">Motivos de Descarte</h1>
+                </div>
+                <div class="user-info">
+                    <span class="username">Matheus</span>
+                    <i class="fas fa-user"></i>
+                    <button class="logout-btn">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Cadastrar Motivo de Descarte -->
+                <section class="form-section">
+                    <div class="form-card">
+                        <div class="form-header">
+                            <h3><i class="fas fa-plus"></i> Cadastrar Motivo de Descarte</h3>
+                        </div>
+                        <form id="motivoDescarteForm" class="form-content">
+                            <div class="form-row">
+                            <div class="form-group">
+                                <label for="codigoMotivo">Código do Motivo:</label>
+                                <div class="input-with-info">
+                                    <input type="text" id="codigoMotivo" name="codigo" placeholder="Gerado automaticamente" maxlength="20" readonly>
+                                    <small class="input-hint">Código gerado automaticamente baseado no nome</small>
+                                </div>
+                            </div>
+                                <div class="form-group required">
+                                    <label for="nomeMotivo">Nome do Motivo:</label>
+                                    <input type="text" id="nomeMotivo" name="nome" placeholder="Ex: Defeito na Pintura" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group required">
+                                    <label for="classeMotivo">Classe de Descarte:</label>
+                                    <input type="text" id="classeMotivo" name="classe" placeholder="Ex: Qualidade, Processo, Material..." required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="gravidadeMotivo">Gravidade:</label>
+                                    <select id="gravidadeMotivo" name="gravidade">
+                                        <option value="baixa">Baixa</option>
+                                        <option value="media">Média</option>
+                                        <option value="alta">Alta</option>
+                                        <option value="critica">Crítica</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="descricaoMotivo">Descrição:</label>
+                                <textarea id="descricaoMotivo" name="descricao" rows="3" placeholder="Descrição detalhada do motivo de descarte"></textarea>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary">
+                                    <i class="fas fa-save"></i> Salvar Motivo
+                                </button>
+                                <button type="button" class="btn-secondary" id="limparForm">
+                                    <i class="fas fa-broom"></i> Limpar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Filtros e Busca -->
+                <section class="filters-section">
+                    <div class="filters-card">
+                        <div class="filters-header">
+                            <h3><i class="fas fa-filter"></i> Filtros e Busca</h3>
+                        </div>
+                        <div class="filters-content">
+                            <div class="filter-group">
+                                <label for="searchInput">Buscar:</label>
+                                <div class="search-input-group">
+                                    <i class="fas fa-search"></i>
+                                    <input type="text" id="searchInput" placeholder="Digite código, nome, classe ou descrição..." autocomplete="off">
+                                </div>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label for="gravidadeFilter">Gravidade:</label>
+                                <select id="gravidadeFilter">
+                                    <option value="all">Todas as gravidades</option>
+                                    <option value="baixa">Baixa</option>
+                                    <option value="media">Média</option>
+                                    <option value="alta">Alta</option>
+                                    <option value="critica">Crítica</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label>&nbsp;</label>
+                                <button type="button" class="btn-clear-filters" id="clearAllFiltersBtn">
+                                    <i class="fas fa-broom"></i> Limpar Filtros
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Motivos de Descarte Cadastrados -->
+                <section class="table-section">
+                    <div class="table-card">
+                        <div class="table-header">
+                            <h3><i class="fas fa-list"></i> Motivos de Descarte Cadastrados</h3>
+                            <div class="table-actions">
+                                <button class="btn-success" id="exportExcel">
+                                    <i class="fas fa-file-excel"></i> Exportar Excel
+                                </button>
+                                <button class="btn-info" id="refreshTable">
+                                    <i class="fas fa-sync-alt"></i> Atualizar
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="table-container">
+                            <table class="data-table" id="motivosTable">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Nome</th>
+                                        <th>Classe</th>
+                                        <th>Gravidade</th>
+                                        <th>Data Criação</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="motivosTableBody">
+                                    <!-- Dados serão carregados via JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Paginação -->
+                        <div class="pagination" id="pagination">
+                            <button class="pagination-btn" id="prevPage" disabled>
+                                <i class="fas fa-chevron-left"></i> Anterior
+                            </button>
+                            <div class="pagination-info" id="paginationInfo">
+                                Mostrando 1 até 10 de 0 registros
+                            </div>
+                            <button class="pagination-btn" id="nextPage" disabled>
+                                Próximo <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para Editar Motivo -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Editar Motivo de Descarte</h3>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <input type="hidden" id="editId" name="id">
+                    
+                    <div class="form-group">
+                        <label for="editCodigo">Código do Motivo:</label>
+                        <div class="input-with-info">
+                            <input type="text" id="editCodigo" name="codigo" maxlength="20">
+                            <small class="input-hint">Pode ser editado manualmente se necessário</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group required">
+                        <label for="editNome">Nome do Motivo:</label>
+                        <input type="text" id="editNome" name="nome" required>
+                    </div>
+                    
+                    <div class="form-group required">
+                        <label for="editClasse">Classe de Descarte:</label>
+                        <input type="text" id="editClasse" name="classe" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editGravidade">Gravidade:</label>
+                        <select id="editGravidade" name="gravidade">
+                            <option value="baixa">Baixa</option>
+                            <option value="media">Média</option>
+                            <option value="alta">Alta</option>
+                            <option value="critica">Crítica</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editDescricao">Descrição:</label>
+                        <textarea id="editDescricao" name="descricao" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancelEdit">Cancelar</button>
+                        <button type="submit" class="btn-primary">Salvar Alterações</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/permissions.js"></script>
+    <script src="js/page-permissions.js"></script>
+    <script src="js/motivos-descarte.js"></script>
+</body>
+</html>

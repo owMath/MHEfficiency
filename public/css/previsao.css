@@ -1,0 +1,344 @@
+/* Estilos específicos para página de Previsão OEE */
+
+/* Container principal do dashboard */
+.previsao-dashboard {
+    padding: 3rem;
+    background-color: #ffffff;
+    min-height: calc(100vh - 120px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* Título principal da página */
+.page-main-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin: 0 0 3rem 0;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid #1e3a8a;
+}
+
+/* Seção de controles */
+.controls-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 1200px;
+}
+
+.period-controls,
+.forecast-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.period-controls label,
+.forecast-controls label {
+    font-weight: 600;
+    color: #1e3a8a;
+    font-size: 0.95rem;
+}
+
+.period-select,
+.forecast-select {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #ffffff;
+    color: #1e3a8a;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 180px;
+}
+
+.period-select:hover,
+.forecast-select:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+.period-select:focus,
+.forecast-select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.refresh-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(30, 58, 138, 0.3);
+}
+
+.refresh-btn:hover {
+    background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(30, 58, 138, 0.4);
+}
+
+.refresh-btn:active {
+    transform: translateY(0);
+}
+
+.refresh-btn i {
+    transition: transform 0.3s ease;
+}
+
+.refresh-btn:hover i {
+    transform: rotate(180deg);
+}
+
+/* Seção do gráfico */
+.chart-section {
+    width: 100%;
+    max-width: 1400px;
+    margin-bottom: 2rem;
+}
+
+.chart-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.chart-card:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.chart-header h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin: 0;
+}
+
+.chart-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.info-item i {
+    color: #3b82f6;
+}
+
+/* Container do gráfico */
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    margin-bottom: 2rem;
+}
+
+/* Estatísticas do gráfico */
+.chart-stats {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 8px;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1e3a8a;
+}
+
+.stat-value.forecast {
+    color: #10b981;
+}
+
+.stat-value i {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+.stat-value.up {
+    color: #10b981;
+}
+
+.stat-value.down {
+    color: #ef4444;
+}
+
+.stat-value.stable {
+    color: #f59e0b;
+}
+
+/* Mensagem de carregamento */
+.loading-message {
+    text-align: center;
+    padding: 3rem;
+    color: #6b7280;
+    font-size: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.loading-message i {
+    font-size: 2.5rem;
+    color: #3b82f6;
+}
+
+/* Mensagem de erro */
+.error-message {
+    text-align: center;
+    padding: 3rem;
+    color: #ef4444;
+    font-size: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    background-color: #fef2f2;
+    border: 2px solid #fee2e2;
+    border-radius: 12px;
+    max-width: 600px;
+    margin: 2rem auto;
+}
+
+.error-message i {
+    font-size: 2.5rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .previsao-dashboard {
+        padding: 2rem 1rem;
+    }
+
+    .page-main-title {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+    }
+
+    .controls-section {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+
+    .period-controls,
+    .forecast-controls {
+        width: 100%;
+    }
+
+    .period-select,
+    .forecast-select {
+        width: 100%;
+    }
+
+    .refresh-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .chart-container {
+        height: 400px;
+    }
+
+    .chart-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .stat-item {
+        width: 100%;
+    }
+
+    .chart-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .chart-header h3 {
+        font-size: 1.2rem;
+    }
+
+    .chart-info {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-main-title {
+        font-size: 1.5rem;
+    }
+
+    .chart-container {
+        height: 300px;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+    }
+
+    .chart-card {
+        padding: 1rem;
+    }
+}
+

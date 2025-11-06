@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema OEE - Configurações de Produtos</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/configuracao-produtos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-cog"></i>
+                    <span class="logo-text">MH Efficiency</span>
+                </div>
+                <h1 class="system-title">Sistema OEE</h1>
+                <p class="system-subtitle">Painel de Controle</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-compass"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-sistema.html" class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Configurações do Sistema</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="perfil.html" class="nav-link">
+                            <i class="fas fa-user"></i>
+                            <span>Perfil</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="usuarios.html" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Usuários</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="aprovacao-operadores.html" class="nav-link">
+                            <i class="fas fa-user-check"></i>
+                            <span>Aprovação de Operadores</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <hr class="nav-divider">
+                
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="paradas-maquina.html" class="nav-link">
+                            <i class="fas fa-circle"></i>
+                            <span>Paradas de Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="analise-producao.html" class="nav-link">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Análise de Produção</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-parada.html" class="nav-link">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Motivos de Parada</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-descarte.html" class="nav-link">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Motivos de Descarte</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="cadastro-produtos.html" class="nav-link">
+                            <i class="fas fa-box"></i>
+                            <span>Cadastro de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="produto-maquina.html" class="nav-link">
+                            <i class="fas fa-link"></i>
+                            <span>Produto x Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="configuracao-produtos.html" class="nav-link">
+                            <i class="fas fa-wrench"></i>
+                            <span>Configurações de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-turno.html" class="nav-link">
+                            <i class="fas fa-clock"></i>
+                            <span>Configurações de Turno</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header-left">
+                    <h1 class="page-title">
+                        Configurações de Produtos
+                    </h1>
+                    <div class="status-message"></div>
+                </div>
+                <div class="user-info">
+                    <span class="username">Matheus</span>
+                    <i class="fas fa-user"></i>
+                    <button class="logout-btn">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="dashboard-content">
+                <!-- Seção Configuração de Produto -->
+                <section class="config-section">
+                    <div class="config-card">
+                        <div class="config-header">
+                            <i class="fas fa-wrench"></i>
+                            <h3>Configurações de Produto</h3>
+                        </div>
+                        <div class="config-content">
+                            <p class="config-description">Configure os parâmetros técnicos e operacionais para cada produto</p>
+                            
+                            <form id="configProdutoForm" class="config-produto-form">
+                                <!-- Informações Básicas -->
+                                <div class="form-section">
+                                    <div class="section-header">
+                                        <i class="fas fa-info-circle"></i>
+                                        <h4>Informações Básicas</h4>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group required">
+                                            <label for="produtoSelecionado">Nome do Produto</label>
+                                            <select id="produtoSelecionado" name="produtoSelecionado" required>
+                                                <option value="">Selecione um produto</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="codigoProduto">Código do Produto</label>
+                                            <input type="text" id="codigoProduto" name="codigoProduto" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="categoria">Categoria</label>
+                                            <input type="text" id="categoria" name="categoria" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="descricao">Descrição</label>
+                                            <textarea id="descricao" name="descricao" placeholder="Descreva as características principais do produto..." readonly></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Especificações Técnicas -->
+                                <div class="form-section">
+                                    <div class="section-header">
+                                        <i class="fas fa-cogs"></i>
+                                        <h4>Especificações Técnicas</h4>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="tempoCiclo">Tempo de Ciclo (seg)</label>
+                                            <input type="number" id="tempoCiclo" name="tempoCiclo" step="0.01" min="0" value="0.00">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="tempoSetup">Tempo de Setup (seg)</label>
+                                            <input type="number" id="tempoSetup" name="tempoSetup" step="0.01" min="0" value="0.00">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="producaoIdeal">Produção Ideal (unidades/hora)</label>
+                                            <input type="number" id="producaoIdeal" name="producaoIdeal" min="0" value="0">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="temperatura">Temperatura (°C)</label>
+                                            <input type="number" id="temperatura" name="temperatura" step="0.01" min="0" value="0">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="pressao">Pressão (bar)</label>
+                                            <input type="number" id="pressao" name="pressao" step="0.01" min="0" value="0.00">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="velocidade">Velocidade (rpm)</label>
+                                            <input type="number" id="velocidade" name="velocidade" min="0" value="0">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="materiaisNecessarios">Materiais Necessários</label>
+                                            <textarea id="materiaisNecessarios" name="materiaisNecessarios" placeholder="Liste os materiais principais..."></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="instrucoesFabricacao">Instruções de Fabricação</label>
+                                            <textarea id="instrucoesFabricacao" name="instrucoesFabricacao" placeholder="Descreva o processo de fabricação..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="button" id="cancelarConfig" class="btn-secondary">
+                                        <i class="fas fa-times"></i>
+                                        Cancelar
+                                    </button>
+                                    <button type="submit" class="btn-success">
+                                        <i class="fas fa-save"></i>
+                                        Salvar Configurações
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Seção Produtos Configurados -->
+                <section class="table-section">
+                    <div class="table-card">
+                        <div class="table-header">
+                            <h3>
+                                <i class="fas fa-list"></i>
+                                Produtos Configurados
+                            </h3>
+                            <div class="table-actions">
+                                <div class="search-group">
+                                    <i class="fas fa-search"></i>
+                                    <input type="text" id="searchProdutos" placeholder="Buscar produtos...">
+                                </div>
+                                <button id="novoProduto" class="btn-primary">
+                                    <i class="fas fa-plus"></i>
+                                    Novo Produto
+                                </button>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table" id="produtosTable">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Nome</th>
+                                        <th>Categoria</th>
+                                        <th>Status</th>
+                                        <th>Última Atualização</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="produtosTableBody">
+                                    <!-- Produtos serão carregados aqui via JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination" id="pagination">
+                            <!-- Paginação será gerada aqui -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal de confirmação -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Confirmar Ação</h3>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="modalMessage">Tem certeza que deseja realizar esta ação?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelAction">Cancelar</button>
+                <button class="btn-danger" id="confirmAction">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de carregamento -->
+    <div id="loadingModal" class="modal">
+        <div class="modal-content">
+            <div class="loading-spinner"></div>
+            <p>Processando...</p>
+        </div>
+    </div>
+
+    <!-- Modal de mensagem -->
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <div class="message-icon">
+                <i id="messageIcon" class="fas fa-check-circle"></i>
+            </div>
+            <h3 id="messageTitle">Sucesso</h3>
+            <p id="messageText">Operação realizada com sucesso!</p>
+            <button id="messageClose" class="btn-primary">OK</button>
+        </div>
+    </div>
+
+    <script src="js/configuracao-produtos.js"></script>
+    <script src="js/permissions.js"></script>
+    <script src="js/page-permissions.js"></script>
+</body>
+</html>

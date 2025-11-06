@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema OEE - Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-cog"></i>
+                    <span class="logo-text">MH Efficiency</span>
+                </div>
+                <h1 class="system-title">Sistema OEE</h1>
+                <p class="system-subtitle">Painel de Controle</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item active">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-compass"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-sistema.html" class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Configurações do Sistema</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="perfil.html" class="nav-link">
+                            <i class="fas fa-user"></i>
+                            <span>Perfil</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="usuarios.html" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Usuários</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="aprovacao-operadores.html" class="nav-link">
+                            <i class="fas fa-user-check"></i>
+                            <span>Aprovação de Operadores</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <hr class="nav-divider">
+                
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="paradas-maquina.html" class="nav-link">
+                            <i class="fas fa-circle"></i>
+                            <span>Paradas de Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="analise-producao.html" class="nav-link">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Análise de Produção</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-parada.html" class="nav-link">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Motivos de Parada</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-descarte.html" class="nav-link">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Motivos de Descarte</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="cadastro-produtos.html" class="nav-link">
+                            <i class="fas fa-box"></i>
+                            <span>Cadastro de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="produto-maquina.html" class="nav-link">
+                            <i class="fas fa-link"></i>
+                            <span>Produto x Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracao-produtos.html" class="nav-link">
+                            <i class="fas fa-wrench"></i>
+                            <span>Configurações de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-turno.html" class="nav-link">
+                            <i class="fas fa-clock"></i>
+                            <span>Configurações de Turno</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header-left">
+                    <h1 class="page-title">Dashboard</h1>
+                    <div class="status-message"></div>
+                </div>
+                <div class="user-info">
+                    <span class="username">Matheus</span>
+                    <i class="fas fa-user"></i>
+                    <button class="logout-btn">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Análises Detalhadas Section -->
+                <section class="analysis-section">
+                    <h2 class="section-title">Análises Detalhadas</h2>
+                    <div class="cards-grid">
+                        <div class="analysis-card">
+                            <a href="paradas-maquina.html" class="card-link">
+                                <div class="card-icon">
+                                    <i class="fas fa-circle"></i>
+                                </div>
+                                <h3>Paradas de Máquina</h3>
+                            </a>
+                        </div>
+                        <div class="analysis-card">
+                            <a href="analise-producao.html" class="card-link">
+                                <div class="card-icon">
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                                <h3>Produção</h3>
+                            </a>
+                        </div>
+                        <div class="analysis-card">
+                            <a href="lista-descartes.html" class="card-link">
+                                <div class="card-icon">
+                                    <i class="fas fa-trash"></i>
+                                </div>
+                                <h3>Lista de Descartes</h3>
+                            </a>
+                        </div>
+                        <div class="analysis-card">
+                            <a href="sinal.html" class="card-link">
+                                <div class="card-icon">
+                                    <i class="fas fa-signal"></i>
+                                </div>
+                                <h3>Sinal da Máquina</h3>
+                            </a>
+                        </div>
+                        <div class="analysis-card">
+                            <a href="visao-tempo-real.html" class="card-link">
+                                <div class="card-icon">
+                                    <i class="fas fa-desktop"></i>
+                                </div>
+                                <h3>Visão em Tempo Real</h3>
+                            </a>
+                        </div>
+                        <div class="analysis-card">
+                            <a href="mtbf.html" class="card-link">
+                                <div class="card-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <h3>MTBF</h3>
+                            </a>
+                        </div>
+                        <div class="analysis-card">
+                            <a href="mttr.html" class="card-link">
+                                <div class="card-icon">
+                                    <i class="fas fa-tools"></i>
+                                </div>
+                                <h3>MTTR</h3>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Gestão Operacional Section -->
+                <section class="management-section">
+                    <h2 class="section-title">Gestão Operacional</h2>
+                    <div class="cards-grid">
+                        <div class="management-card" data-link="relatorios.html">
+                            <div class="card-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <h3>Relatórios</h3>
+                        </div>
+                        <div class="management-card" data-link="logistica.html">
+                            <div class="card-icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <h3>Logística</h3>
+                        </div>
+                        <div class="management-card" data-link="maquinas.html">
+                            <div class="card-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <h3>Máquinas</h3>
+                        </div>
+                        <div class="management-card" data-link="previsao.html">
+                            <div class="card-icon">
+                                <i class="fas fa-chart-area"></i>
+                            </div>
+                            <h3>Previsão OEE</h3>
+                        </div>
+                    </div>
+                </section>
+
+                
+            </div>
+        </main>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+    <script src="js/permissions.js"></script>
+    <script src="js/page-permissions.js"></script>
+</body>
+</html>

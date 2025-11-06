@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema OEE - Lista de Descartes</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/lista-descartes.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <script src="js/libs/chart.min.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-cog"></i>
+                    <span class="logo-text">MH Efficiency</span>
+                </div>
+                <h1 class="system-title">Sistema OEE</h1>
+                <p class="system-subtitle">Painel de Controle</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-compass"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-sistema.html" class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Configurações do Sistema</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="perfil.html" class="nav-link">
+                            <i class="fas fa-user"></i>
+                            <span>Perfil</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="usuarios.html" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Usuários</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="aprovacao-operadores.html" class="nav-link">
+                            <i class="fas fa-user-check"></i>
+                            <span>Aprovação de Operadores</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <hr class="nav-divider">
+                
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="paradas-maquina.html" class="nav-link">
+                            <i class="fas fa-circle"></i>
+                            <span>Paradas de Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="analise-producao.html" class="nav-link">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Análise de Produção</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-parada.html" class="nav-link">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Motivos de Parada</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-descarte.html" class="nav-link">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Motivos de Descarte</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="cadastro-produtos.html" class="nav-link">
+                            <i class="fas fa-box"></i>
+                            <span>Cadastro de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="produto-maquina.html" class="nav-link">
+                            <i class="fas fa-link"></i>
+                            <span>Produto x Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracao-produtos.html" class="nav-link">
+                            <i class="fas fa-wrench"></i>
+                            <span>Configurações de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-turno.html" class="nav-link">
+                            <i class="fas fa-clock"></i>
+                            <span>Configurações de Turno</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header-left">
+                    <h1 class="page-title">
+                        Lista de Descartes
+                    </h1>
+                    <div class="status-message"></div>
+                </div>
+                <div class="user-info">
+                    <span class="username">Matheus</span>
+                    <i class="fas fa-user"></i>
+                    <button class="logout-btn">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Filtros -->
+            <div class="filters-section">
+                <div class="filters-container">
+                    <div class="filter-group">
+                        <label for="machineFilter">Filtrar por Máquina</label>
+                        <select id="machineFilter" class="filter-select">
+                            <option value="">Todas as Máquinas</option>
+                            <!-- Opções serão carregadas dinamicamente via JavaScript -->
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="severityFilter">Severidades</label>
+                        <select id="severityFilter" class="filter-select">
+                            <option value="">Todas</option>
+                            <option value="baixa">Baixa</option>
+                            <option value="media">Média</option>
+                            <option value="alta">Alta</option>
+                            <option value="critica">Crítica</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="periodFilter">Período</label>
+                        <select id="periodFilter" class="filter-select">
+                            <option value="week">Esta Semana</option>
+                            <option value="month">Este Mês</option>
+                            <option value="quarter">Este Trimestre</option>
+                            <option value="year">Este Ano</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cards de Resumo -->
+            <div class="summary-cards">
+                <div class="cards-grid">
+                    <div class="summary-card total-descartes">
+                        <div class="card-icon">
+                            <i class="fas fa-trash"></i>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-count" id="totalDescartes">0</div>
+                            <div class="card-label">Total de Descartes</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção de Gráfico -->
+            <div class="chart-section">
+                <div class="chart-header">
+                    <h3>Descartes por Motivo</h3>
+                    <select id="chartPeriodFilter" class="period-filter">
+                        <option value="week">Esta Semana</option>
+                        <option value="month">Este Mês</option>
+                        <option value="quarter">Este Trimestre</option>
+                        <option value="year">Este Ano</option>
+                    </select>
+                </div>
+                <div class="chart-container">
+                    <canvas id="descarteChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Seção de Histórico -->
+            <div class="history-section">
+                <div class="history-header">
+                    <h2>Histórico Detalhado de Descartes</h2>
+                    <div class="history-controls">
+                        <div class="search-group">
+                            <input type="text" id="searchInput" placeholder="Buscar..." class="search-input">
+                        </div>
+                        <button class="btn-success" id="addDescarteBtn">
+                            <i class="fas fa-plus"></i>
+                            Registrar Descarte
+                        </button>
+                        <button class="btn-info" id="exportBtn">
+                            <i class="fas fa-download"></i>
+                            Exportar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="history-table-container">
+                    <table class="history-table" id="descarteTable">
+                        <thead>
+                            <tr>
+                                <th>Data/Hora</th>
+                                <th>Máquina</th>
+                                <th>Categoria</th>
+                                <th>Motivo</th>
+                                <th>Quantidade</th>
+                                <th>Severidade</th>
+                                <th>Registrado por</th>
+                                <th>Descrição</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="descarteTableBody">
+                            <!-- Dados serão carregados dinamicamente via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para Registrar Descarte -->
+    <div id="descarteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>
+                    <i class="fas fa-plus"></i>
+                    Registrar Descarte
+                </h3>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="descarteForm">
+                    <div class="form-group">
+                        <label for="modalMachine">Máquina *</label>
+                        <select id="modalMachine" required>
+                            <option value="">Selecione uma máquina</option>
+                            <!-- Opções serão carregadas dinamicamente via JavaScript -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="modalMotivo">Motivo do Descarte *</label>
+                        <select id="modalMotivo" required>
+                            <option value="">Selecione um motivo</option>
+                            <!-- Opções serão carregadas dinamicamente via JavaScript -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="modalQuantidade">Quantidade *</label>
+                        <input type="number" id="modalQuantidade" min="1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="modalSeveridade">Severidade *</label>
+                        <select id="modalSeveridade" required>
+                            <option value="">Selecione a severidade</option>
+                            <option value="baixa">Baixa</option>
+                            <option value="media">Média</option>
+                            <option value="alta">Alta</option>
+                            <option value="critica">Crítica</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="modalDescricao">Descrição</label>
+                        <textarea id="modalDescricao" rows="3" placeholder="Descrição adicional do descarte..."></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancelModal">Cancelar</button>
+                        <button type="submit" class="btn-primary">Registrar Descarte</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/permissions.js"></script>
+    <script src="js/page-permissions.js"></script>
+    <script src="js/lista-descartes.js"></script>
+</body>
+</html>

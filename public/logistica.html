@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema OEE - Gestão de Logística</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/logistica.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-cog"></i>
+                    <span class="logo-text">MH Efficiency</span>
+                </div>
+                <h1 class="system-title">Sistema OEE</h1>
+                <p class="system-subtitle">Painel de Controle</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-compass"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-sistema.html" class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Configurações do Sistema</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="perfil.html" class="nav-link">
+                            <i class="fas fa-user"></i>
+                            <span>Perfil</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="usuarios.html" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Usuários</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="aprovacao-operadores.html" class="nav-link">
+                            <i class="fas fa-user-check"></i>
+                            <span>Aprovação de Operadores</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <hr class="nav-divider">
+                
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="paradas-maquina.html" class="nav-link">
+                            <i class="fas fa-circle"></i>
+                            <span>Paradas de Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="analise-producao.html" class="nav-link">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Análise de Produção</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-parada.html" class="nav-link">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Motivos de Parada</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-descarte.html" class="nav-link">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Motivos de Descarte</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="cadastro-produtos.html" class="nav-link">
+                            <i class="fas fa-box"></i>
+                            <span>Cadastro de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="produto-maquina.html" class="nav-link">
+                            <i class="fas fa-link"></i>
+                            <span>Produto x Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracao-produtos.html" class="nav-link">
+                            <i class="fas fa-wrench"></i>
+                            <span>Configurações de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-turno.html" class="nav-link">
+                            <i class="fas fa-clock"></i>
+                            <span>Configurações de Turno</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header-left">
+                    <h1 class="page-title">Gestão de Logística</h1>
+                    <div class="status-message"></div>
+                </div>
+                <div class="user-info">
+                    <span class="username">Matheus</span>
+                    <i class="fas fa-user"></i>
+                    <button class="logout-btn">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="dashboard-content">
+                <!-- Seção Status do Estoque -->
+                <section class="logistica-section">
+                    <div class="logistica-card">
+                        <div class="logistica-card-header">
+                            <h2>Status do Estoque</h2>
+                        </div>
+                        <div class="logistica-card-body" id="statusEstoqueContainer">
+                            <!-- Conteúdo será carregado via JavaScript -->
+                            <div class="empty-state-logistica">
+                                <i class="fas fa-box-open"></i>
+                                <h3>Nenhum item cadastrado</h3>
+                                <p>Adicione seu primeiro item de logística para começar.</p>
+                                <button class="btn-primary-logistica" id="btnPrimeiroItem">
+                                    <i class="fas fa-plus"></i>
+                                    Adicionar Primeiro Item
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Seção Itens que Precisam de Atenção -->
+                <section class="logistica-section">
+                    <div class="logistica-card">
+                        <div class="logistica-card-header">
+                            <h2>Itens que Precisam de Atenção</h2>
+                        </div>
+                        <div class="logistica-card-body" id="itensAtencaoContainer">
+                            <!-- Conteúdo será carregado via JavaScript -->
+                            <div class="ok-state-logistica">
+                                <i class="fas fa-check-circle"></i>
+                                <h3>Todos os itens estão OK</h3>
+                                <p>Nenhum item precisa de atenção no momento.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Seção Solicitações de Compra -->
+                <section class="logistica-section">
+                    <div class="logistica-card">
+                        <div class="logistica-card-header">
+                            <h2>Solicitações de Compra</h2>
+                            <div class="card-header-actions">
+                                <button class="btn-secondary-small" id="btnLimparAntigas">
+                                    <i class="fas fa-check"></i>
+                                    Limpar Antigas
+                                </button>
+                                <button class="btn-danger-small" id="btnLimparTodas">
+                                    <i class="fas fa-trash"></i>
+                                    Limpar Todas
+                                </button>
+                            </div>
+                        </div>
+                        <div class="logistica-card-body" id="solicitacoesContainer">
+                            <!-- Conteúdo será carregado via JavaScript -->
+                            <div class="empty-state-logistica">
+                                <i class="fas fa-clipboard-list"></i>
+                                <h3>Nenhuma solicitação de compra</h3>
+                                <p>Não há solicitações de compra pendentes no momento.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Adicionar/Editar Item -->
+    <div id="modalItem" class="modal-logistica">
+        <div class="modal-content-logistica">
+            <div class="modal-header-logistica">
+                <h3 id="modalItemTitle">Adicionar Item de Logística</h3>
+                <button class="modal-close-logistica" id="closeItemModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body-logistica">
+                <form id="formItemLogistica">
+                    <div class="form-row-logistica">
+                        <div class="form-group-logistica required">
+                            <label for="codigoItem">Código do Item</label>
+                            <input type="text" id="codigoItem" name="codigo" readonly>
+                            <span class="input-hint-logistica">Gerado automaticamente</span>
+                        </div>
+                        <div class="form-group-logistica required">
+                            <label for="nomeItem">Nome do Item</label>
+                            <input type="text" id="nomeItem" name="nome" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row-logistica">
+                        <div class="form-group-logistica">
+                            <label for="categoriaItem">Categoria</label>
+                            <input type="text" id="categoriaItem" name="categoria" placeholder="Ex: Matéria-prima, Insumo, etc.">
+                        </div>
+                        <div class="form-group-logistica">
+                            <label for="unidadeMedidaItem">Unidade de Medida</label>
+                            <select id="unidadeMedidaItem" name="unidadeMedida">
+                                <option value="unidade">Unidade</option>
+                                <option value="kg">Quilograma (kg)</option>
+                                <option value="g">Grama (g)</option>
+                                <option value="litro">Litro (L)</option>
+                                <option value="ml">Mililitro (ml)</option>
+                                <option value="metro">Metro (m)</option>
+                                <option value="caixa">Caixa</option>
+                                <option value="pacote">Pacote</option>
+                                <option value="rolo">Rolo</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row-logistica">
+                        <div class="form-group-logistica required">
+                            <label for="quantidadeAtualItem">Quantidade Atual</label>
+                            <input type="number" id="quantidadeAtualItem" name="quantidadeAtual" min="0" step="0.01" required>
+                        </div>
+                        <div class="form-group-logistica required">
+                            <label for="quantidadeMinimaItem">Quantidade Mínima</label>
+                            <input type="number" id="quantidadeMinimaItem" name="quantidadeMinima" min="0" step="0.01" required>
+                        </div>
+                        <div class="form-group-logistica">
+                            <label for="quantidadeMaximaItem">Quantidade Máxima</label>
+                            <input type="number" id="quantidadeMaximaItem" name="quantidadeMaxima" min="0" step="0.01">
+                        </div>
+                    </div>
+
+                    <div class="form-row-logistica">
+                        <div class="form-group-logistica">
+                            <label for="localizacaoItem">Localização</label>
+                            <input type="text" id="localizacaoItem" name="localizacao" placeholder="Ex: Estoque A, Prateleira 3">
+                        </div>
+                        <div class="form-group-logistica">
+                            <label for="fornecedorItem">Fornecedor</label>
+                            <input type="text" id="fornecedorItem" name="fornecedor">
+                        </div>
+                        <div class="form-group-logistica">
+                            <label for="custoUnitarioItem">Custo Unitário (R$)</label>
+                            <input type="number" id="custoUnitarioItem" name="custoUnitario" min="0" step="0.01">
+                        </div>
+                    </div>
+
+                    <div class="form-row-logistica">
+                        <div class="form-group-logistica">
+                            <label for="dataValidadeItem">Data de Validade</label>
+                            <input type="date" id="dataValidadeItem" name="dataValidade">
+                        </div>
+                    </div>
+
+                    <div class="form-group-logistica">
+                        <label for="descricaoItem">Descrição</label>
+                        <textarea id="descricaoItem" name="descricao" rows="3"></textarea>
+                    </div>
+
+                    <input type="hidden" id="itemId" name="id">
+                    
+                    <div class="form-actions-logistica">
+                        <button type="submit" class="btn-success-logistica">
+                            <i class="fas fa-save"></i>
+                            Salvar Item
+                        </button>
+                        <button type="button" class="btn-secondary-logistica" id="cancelarItem">
+                            <i class="fas fa-times"></i>
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div id="confirmModal" class="modal-logistica">
+        <div class="modal-content-logistica modal-small">
+            <div class="modal-header-logistica">
+                <h3 id="modalConfirmTitle">Confirmar Ação</h3>
+                <button class="modal-close-logistica" id="closeConfirmModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body-logistica">
+                <p id="modalConfirmMessage">Tem certeza que deseja realizar esta ação?</p>
+            </div>
+            <div class="modal-footer-logistica">
+                <button class="btn-secondary-logistica" id="cancelConfirm">Cancelar</button>
+                <button class="btn-danger-logistica" id="confirmAction">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Solicitar Compra -->
+    <div id="modalSolicitarCompra" class="modal-logistica">
+        <div class="modal-content-logistica">
+            <div class="modal-header-logistica">
+                <h3 id="modalSolicitarCompraTitle">Solicitar Compra</h3>
+                <button class="modal-close-logistica" id="closeSolicitarCompraModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body-logistica">
+                <div class="item-info-box">
+                    <h4>Informações do Item</h4>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Nome:</span>
+                            <span class="info-value" id="itemSolicitacaoNome">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Código:</span>
+                            <span class="info-value" id="itemSolicitacaoCodigo">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Estoque Atual:</span>
+                            <span class="info-value" id="itemSolicitacaoEstoqueAtual">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Estoque Mínimo:</span>
+                            <span class="info-value" id="itemSolicitacaoEstoqueMinimo">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="formSolicitarCompra">
+                    <div class="form-row-logistica">
+                        <div class="form-group-logistica required">
+                            <label for="emailDestinatario">
+                                <i class="fas fa-envelope"></i>
+                                E-mail do Destinatário
+                            </label>
+                            <input type="email" id="emailDestinatario" name="emailDestinatario" required 
+                                   placeholder="exemplo@fornecedor.com">
+                        </div>
+                    </div>
+
+                    <div class="form-row-logistica">
+                        <div class="form-group-logistica required">
+                            <label for="quantidadeSolicitacao">
+                                <i class="fas fa-boxes"></i>
+                                Quantidade a Solicitar
+                            </label>
+                            <input type="number" id="quantidadeSolicitacao" name="quantidade" 
+                                   min="1" step="0.01" required>
+                            <span class="input-hint-logistica">Quantidade sugerida baseada no estoque mínimo</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group-logistica">
+                        <label for="mensagemSolicitacao">
+                            <i class="fas fa-comment"></i>
+                            Mensagem Adicional (Opcional)
+                        </label>
+                        <textarea id="mensagemSolicitacao" name="mensagem" rows="4" 
+                                  placeholder="Adicione informações adicionais sobre a solicitação..."></textarea>
+                    </div>
+
+                    <div class="form-actions-logistica">
+                        <button type="submit" class="btn-success-logistica">
+                            <i class="fas fa-paper-plane"></i>
+                            Enviar Solicitação
+                        </button>
+                        <button type="button" class="btn-secondary-logistica" id="cancelarSolicitarCompra">
+                            <i class="fas fa-times"></i>
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/logistica.js"></script>
+    <script src="js/permissions.js"></script>
+    <script src="js/page-permissions.js"></script>
+</body>
+</html>
+

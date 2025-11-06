@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema OEE - Aprovação de Operadores</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/aprovacao-operadores.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-cog"></i>
+                    <span class="logo-text">MH Efficiency</span>
+                </div>
+                <h1 class="system-title">Sistema OEE</h1>
+                <p class="system-subtitle">Painel de Controle</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-compass"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-user-check"></i>
+                            <span>Aprovação de Operadores</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="usuarios.html" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Usuários</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header-left">
+                    <h1 class="page-title">Aprovação de Operadores</h1>
+                    <div class="status-message"></div>
+                </div>
+                <div class="user-info">
+                    <span class="username" id="userName">Carregando...</span>
+                    <i class="fas fa-user"></i>
+                    <button class="logout-btn" onclick="logout()" type="button">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="dashboard-content">
+                <div class="approval-section">
+                    <div class="section-header">
+                        <h2>Operadores Aguardando Aprovação</h2>
+                        <div class="approval-stats">
+                            <div class="stat-card">
+                                <i class="fas fa-clock"></i>
+                                <span class="stat-number" id="pendingCount">0</span>
+                                <span class="stat-label">Pendentes</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="operators-list" id="operatorsList">
+                        <div class="loading-state">
+                            <div class="loading-spinner"></div>
+                            <p>Carregando operadores...</p>
+                        </div>
+                    </div>
+
+                    <div class="empty-state" id="emptyState" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Nenhum operador pendente</h3>
+                        <p>Todos os operadores foram processados.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Confirmar Ação</h3>
+                <button class="modal-close" id="modalCloseButton">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="modalMessage">Tem certeza que deseja realizar esta ação?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelButton">Cancelar</button>
+                <button class="btn-primary" id="confirmButton">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Mensagem -->
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <div class="message-icon">
+                <i id="messageIcon" class="fas fa-check-circle"></i>
+            </div>
+            <h3 id="messageTitle">Sucesso</h3>
+            <p id="messageText">Operação realizada com sucesso!</p>
+            <button id="messageClose" class="btn-primary">OK</button>
+        </div>
+    </div>
+
+    <script src="js/approval.js"></script>
+    <script src="js/permissions.js"></script>
+    <script src="js/page-permissions.js"></script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+/* ===== ESTILOS ESPECÍFICOS PARA PÁGINA DE PARADAS DE MÁQUINA ===== */
+
+/* Botão editar com cor azul escuro */
+.btn-edit {
+    background-color: #1e3a8a !important; /* Azul escuro */
+    color: white !important;
+    border: none !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-edit:hover {
+    background-color: #1e40af !important; /* Azul escuro mais claro no hover */
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 8px rgba(30, 58, 138, 0.3) !important;
+}
+
+.btn-edit:active {
+    background-color: #1d4ed8 !important; /* Azul escuro ainda mais claro no active */
+    transform: translateY(0) !important;
+}
+
+/* Botão editar no modal */
+.modal-header {
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%) !important;
+    color: white !important;
+}
+
+.modal-header h3 {
+    color: white !important;
+}
+
+.modal-close {
+    color: white !important;
+}
+
+.modal-close:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Botão salvar no modal */
+.btn-primary {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white !important;
+    border: none !important;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 8px rgba(30, 58, 138, 0.3) !important;
+}
+
+/* Ícone do botão editar */
+.btn-edit i {
+    color: white !important;
+}
+
+/* Responsividade para botões de ação */
+@media (max-width: 480px) {
+    .btn-edit {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 0.8rem !important;
+    }
+}
+
+/* Animação suave para o botão */
+.btn-edit {
+    animation: none !important;
+}
+
+.btn-edit:hover {
+    animation: pulse 0.6s ease-in-out !important;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Estilo para quando o botão está focado */
+.btn-edit:focus {
+    outline: 2px solid #1e3a8a !important;
+    outline-offset: 2px !important;
+}
+
+/* Estilo para quando o botão está desabilitado */
+.btn-edit:disabled {
+    background-color: #9ca3af !important;
+    color: #6b7280 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Estilo para o tooltip do botão editar */
+.btn-edit[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1f2937;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+/* Estilo para o container dos botões de ação */
+.action-buttons {
+    position: relative;
+}
+
+/* Garantir que outros botões mantenham suas cores originais */
+.btn-delete {
+    background-color: #ef4444 !important;
+    color: white !important;
+}
+
+.btn-delete:hover {
+    background-color: #dc2626 !important;
+}
+
+.btn-classify {
+    background-color: #10b981 !important;
+    color: white !important;
+}
+
+.btn-classify:hover {
+    background-color: #059669 !important;
+}

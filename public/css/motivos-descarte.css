@@ -1,0 +1,363 @@
+/* CSS específico para a página de Motivos de Descarte */
+
+/* Estilo para o título "Cadastrar Motivo de Descarte" */
+.form-header h3 {
+    color: white !important;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    border-bottom: none !important;
+    text-decoration: none !important;
+}
+
+.form-header h3::after {
+    display: none !important;
+    content: none !important;
+}
+
+/* Estilo adicional para garantir que o texto seja branco */
+.form-card .form-header h3 {
+    color: white !important;
+}
+
+/* Estilo para o ícone junto ao título */
+.form-header h3 i {
+    color: white !important;
+    margin-right: 8px;
+}
+
+/* Estilo para outros títulos da página se necessário */
+.filters-header h3,
+.table-header h3 {
+    color: white !important;
+}
+
+.filters-header h3 i,
+.table-header h3 i {
+    color: white !important;
+    margin-right: 8px;
+}
+
+/* Estilo para o título do modal */
+.modal-header h3 {
+    color: white !important;
+}
+
+/* ===== MELHORIAS NA SEÇÃO DE FILTROS E BUSCA ===== */
+
+/* Container principal dos filtros */
+.filters-section {
+    margin-bottom: 2rem;
+}
+
+.filters-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e7eb;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.filters-card:hover {
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+/* Header dos filtros */
+.filters-header {
+    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+    padding: 1rem 1.5rem;
+    border-bottom: none;
+}
+
+.filters-header h3 {
+    color: white !important;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filters-header h3 i {
+    color: white !important;
+    font-size: 1rem;
+}
+
+/* Conteúdo dos filtros */
+.filters-content {
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr auto;
+    gap: 1.5rem;
+    align-items: end;
+}
+
+/* Grupos de filtro */
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.filter-group label {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+}
+
+/* Campo de busca melhorado */
+.search-input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input-group i {
+    position: absolute;
+    left: 1rem;
+    color: #9ca3af;
+    font-size: 1rem;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.search-input-group input {
+    width: 100%;
+    padding: 0.875rem 1rem 0.875rem 2.75rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    background: #ffffff;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.search-input-group input:focus {
+    border-color: #1e40af;
+    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+    background: #fafafa;
+}
+
+.search-input-group input::placeholder {
+    color: #9ca3af;
+    font-weight: 400;
+}
+
+/* Botão de limpar busca */
+.clear-search-btn {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #9ca3af;
+    font-size: 0.875rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.search-input-group:hover .clear-search-btn,
+.search-input-group input:focus + .clear-search-btn,
+.search-input-group input:not(:placeholder-shown) + .clear-search-btn {
+    opacity: 1;
+    visibility: visible;
+}
+
+.clear-search-btn:hover {
+    color: #ef4444;
+    background: #fef2f2;
+}
+
+/* Botão de limpar todos os filtros */
+.btn-clear-filters {
+    padding: 0.875rem 1rem;
+    background: #6b7280;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    justify-content: center;
+}
+
+.btn-clear-filters:hover {
+    background: #4b5563;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(107, 114, 128, 0.3);
+}
+
+.btn-clear-filters:active {
+    transform: translateY(0);
+}
+
+.btn-clear-filters i {
+    font-size: 0.8rem;
+}
+
+/* Dropdowns melhorados - sem borda e cor quando padrão */
+.filter-group select {
+    padding: 0.875rem 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    background: transparent;
+    color: #374151;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.75rem center;
+    background-repeat: no-repeat;
+    background-size: 1rem;
+    padding-right: 2.5rem;
+}
+
+/* Sem borda quando é o valor padrão "all" */
+.filter-group select[value="all"] {
+    border: none !important;
+    background: transparent !important;
+}
+
+/* Apenas borda quando dropdown tem valor selecionado (não é "all") */
+.filter-group select:not([value="all"]):not(:focus):not(:hover) {
+    border: 2px solid #e5e7eb;
+    background: #ffffff;
+}
+
+.filter-group select:focus {
+    border: 2px solid #1e40af;
+    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+    background-color: #ffffff;
+}
+
+.filter-group select:hover {
+    border: 2px solid #d1d5db;
+    background: #ffffff;
+}
+
+/* Estados dos filtros - removido estilo verde quando selecionado */
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    .filters-content {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .filter-group {
+        width: 100%;
+    }
+    
+    .btn-clear-filters {
+        max-width: 200px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .filters-content {
+        padding: 1rem;
+        gap: 0.75rem;
+    }
+    
+    .filters-header {
+        padding: 0.875rem 1rem;
+    }
+    
+    .filters-header h3 {
+        font-size: 1rem;
+    }
+    
+    .search-input-group input,
+    .filter-group select {
+        padding: 0.75rem 0.875rem;
+        font-size: 0.8rem;
+    }
+    
+    .search-input-group input {
+        padding-left: 2.5rem;
+    }
+    
+    .filter-group select {
+        padding-right: 2.25rem;
+    }
+}
+
+/* Animações suaves */
+.filter-group {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Melhorias visuais adicionais */
+.filters-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #1e40af, #1e3a8a, #1e40af);
+    opacity: 0.8;
+}
+
+/* Efeito de loading nos filtros */
+.filter-group.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.filter-group.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid #e5e7eb;
+    border-top: 2px solid #1e40af;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translateY(-50%) rotate(0deg); }
+    100% { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* Sobrescrever cabeçalho do formulário - mudar azul claro para azul escuro */
+/* COR ANOTADA: #2147B3 - Cor do cabeçalho "Cadastrar Motivo de Descarte" */
+.form-header {
+    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%) !important;
+}
+
+/* Sobrescrever cabeçalho da tabela - mudar verde para azul escuro */
+.table-header {
+    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%) !important;
+}

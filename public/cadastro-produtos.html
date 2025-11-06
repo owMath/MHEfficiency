@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema OEE - Cadastro de Produtos</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/cadastro-produtos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-cog"></i>
+                    <span class="logo-text">MH Efficiency</span>
+                </div>
+                <h1 class="system-title">Sistema OEE</h1>
+                <p class="system-subtitle">Painel de Controle</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-compass"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-sistema.html" class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Configurações do Sistema</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="perfil.html" class="nav-link">
+                            <i class="fas fa-user"></i>
+                            <span>Perfil</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="usuarios.html" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Usuários</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="aprovacao-operadores.html" class="nav-link">
+                            <i class="fas fa-user-check"></i>
+                            <span>Aprovação de Operadores</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <hr class="nav-divider">
+                
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="paradas-maquina.html" class="nav-link">
+                            <i class="fas fa-circle"></i>
+                            <span>Paradas de Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="analise-producao.html" class="nav-link">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Análise de Produção</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-parada.html" class="nav-link">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Motivos de Parada</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="motivos-descarte.html" class="nav-link">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Motivos de Descarte</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="cadastro-produtos.html" class="nav-link">
+                            <i class="fas fa-box"></i>
+                            <span>Cadastro de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="produto-maquina.html" class="nav-link">
+                            <i class="fas fa-link"></i>
+                            <span>Produto x Máquina</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracao-produtos.html" class="nav-link">
+                            <i class="fas fa-wrench"></i>
+                            <span>Configurações de Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes-turno.html" class="nav-link">
+                            <i class="fas fa-clock"></i>
+                            <span>Configurações de Turno</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header-left">
+                    <h1 class="page-title">
+                        Cadastro de Produtos
+                    </h1>
+                    <div class="status-message"></div>
+                </div>
+                <div class="user-info">
+                    <span class="username">Matheus</span>
+                    <i class="fas fa-user"></i>
+                    <button class="logout-btn">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="dashboard-content">
+                <!-- Seção Novo Produto -->
+                <section class="form-section">
+                    <div class="form-card">
+                        <div class="form-header">
+                            <i class="fas fa-plus"></i>
+                            <h3>Novo Produto</h3>
+                        </div>
+                        <div class="form-content">
+                            <p class="form-description">Preencha os dados abaixo para cadastrar um novo produto no sistema</p>
+                            
+                            <form id="produtoForm" class="produto-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="codigoProduto">Código do Produto</label>
+                                        <input type="text" id="codigoProduto" name="codigoProduto" readonly>
+                                        <span class="input-hint">Gerado automaticamente</span>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label for="nomeProduto">Nome do Produto</label>
+                                        <input type="text" id="nomeProduto" name="nomeProduto" placeholder="Ex: Produto A" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="categoria">Categoria</label>
+                                        <select id="categoria" name="categoria">
+                                            <option value="">Selecione uma categoria</option>
+                                            <option value="eletronico">Eletrônico</option>
+                                            <option value="mecanico">Mecânico</option>
+                                            <option value="quimico">Químico</option>
+                                            <option value="textil">Têxtil</option>
+                                            <option value="alimenticio">Alimentício</option>
+                                            <option value="farmaceutico">Farmacêutico</option>
+                                            <option value="automotivo">Automotivo</option>
+                                            <option value="outros">Outros</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label for="maquina">Máquina</label>
+                                        <select id="maquina" name="maquina" required>
+                                            <option value="">Selecione uma máquina</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="unidadeMedida">Unidade de Medida</label>
+                                        <select id="unidadeMedida" name="unidadeMedida">
+                                            <option value="">Selecione uma unidade</option>
+                                            <option value="unidade">Unidade</option>
+                                            <option value="kg">Quilograma (kg)</option>
+                                            <option value="g">Grama (g)</option>
+                                            <option value="litro">Litro (L)</option>
+                                            <option value="ml">Mililitro (ml)</option>
+                                            <option value="metro">Metro (m)</option>
+                                            <option value="cm">Centímetro (cm)</option>
+                                            <option value="mm">Milímetro (mm)</option>
+                                            <option value="m2">Metro quadrado (m²)</option>
+                                            <option value="m3">Metro cúbico (m³)</option>
+                                            <option value="caixa">Caixa</option>
+                                            <option value="pacote">Pacote</option>
+                                            <option value="rolo">Rolo</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="peso">Peso (kg)</label>
+                                        <input type="number" id="peso" name="peso" step="0.01" min="0" value="0.00">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="dimensoes">Dimensões (L x A x P cm)</label>
+                                        <input type="text" id="dimensoes" name="dimensoes" placeholder="Ex: 10 x 5 x 3">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cor">Cor</label>
+                                        <input type="text" id="cor" name="cor" placeholder="Ex: Azul">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="materialPrincipal">Material Principal</label>
+                                        <input type="text" id="materialPrincipal" name="materialPrincipal" placeholder="Ex: Plástico, Metal, etc.">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="fornecedor">Fornecedor</label>
+                                        <input type="text" id="fornecedor" name="fornecedor" placeholder="Nome do fornecedor">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="precoUnitario">Preço Unitário (R$)</label>
+                                        <input type="number" id="precoUnitario" name="precoUnitario" step="0.01" min="0" value="0.00">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="estoqueMinimo">Estoque Mínimo</label>
+                                        <input type="number" id="estoqueMinimo" name="estoqueMinimo" min="0" value="0">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="descricao">Descrição</label>
+                                    <textarea id="descricao" name="descricao" placeholder="Descreva detalhes adicionais sobre o produto..."></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="observacoes">Observações</label>
+                                    <textarea id="observacoes" name="observacoes" placeholder="Observações adicionais..."></textarea>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn-success">
+                                        <i class="fas fa-save"></i>
+                                        Salvar Produto
+                                    </button>
+                                    <button type="button" id="limparFormulario" class="btn-secondary">
+                                        <i class="fas fa-undo"></i>
+                                        Limpar Formulário
+                                    </button>
+                                    <button type="button" id="editarProduto" class="btn-primary" style="display: none;">
+                                        <i class="fas fa-edit"></i>
+                                        Editar Produto
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Seção Produtos Cadastrados -->
+                <section class="table-section">
+                    <div class="table-card">
+                        <div class="table-header">
+                            <h3>
+                                <i class="fas fa-list"></i>
+                                Produtos Cadastrados
+                            </h3>
+                            <div class="table-actions">
+                                <div class="search-group">
+                                    <i class="fas fa-search"></i>
+                                    <input type="text" id="searchProdutos" placeholder="Buscar produtos...">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table" id="produtosTable">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Nome</th>
+                                        <th>Categoria</th>
+                                        <th>Máquina</th>
+                                        <th>Unidade</th>
+                                        <th>Preço</th>
+                                        <th>Estoque</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="produtosTableBody">
+                                    <!-- Produtos serão carregados aqui via JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination" id="pagination">
+                            <!-- Paginação será gerada aqui -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal de confirmação -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Confirmar Ação</h3>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="modalMessage">Tem certeza que deseja realizar esta ação?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelAction">Cancelar</button>
+                <button class="btn-danger" id="confirmAction">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de carregamento -->
+    <div id="loadingModal" class="modal">
+        <div class="modal-content">
+            <div class="loading-spinner"></div>
+            <p>Processando...</p>
+        </div>
+    </div>
+
+    <!-- Modal de mensagem -->
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <div class="message-icon">
+                <i id="messageIcon" class="fas fa-check-circle"></i>
+            </div>
+            <h3 id="messageTitle">Sucesso</h3>
+            <p id="messageText">Operação realizada com sucesso!</p>
+            <button id="messageClose" class="btn-primary">OK</button>
+        </div>
+    </div>
+
+    <script src="js/cadastro-produtos.js"></script>
+    <script src="js/permissions.js"></script>
+    <script src="js/page-permissions.js"></script>
+</body>
+</html>
