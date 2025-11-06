@@ -1,0 +1,525 @@
+[
+    {
+        "id": "d48a03f3e299ce98",
+        "type": "tab",
+        "label": "Sinal",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c1d4f3e2fd829333",
+        "type": "tab",
+        "label": "Sensor",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "11999e75b99dda37",
+        "type": "tab",
+        "label": "Cadastro máquina",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "fc2b1141e4735ca6",
+        "type": "mongodb4-client",
+        "name": "Conexão",
+        "protocol": "mongodb",
+        "hostname": "",
+        "port": "",
+        "dbName": "sistema_oee",
+        "appName": "",
+        "authSource": "",
+        "authMechanism": "DEFAULT",
+        "tls": false,
+        "tlsCAFile": "",
+        "tlsCertificateKeyFile": "",
+        "tlsInsecure": false,
+        "connectTimeoutMS": "30000",
+        "socketTimeoutMS": "0",
+        "minPoolSize": "0",
+        "maxPoolSize": "100",
+        "maxIdleTimeMS": "0",
+        "uri": "mongodb+srv://math:1234@clustertcc.aj3pjgo.mongodb.net/?appName=ClusterTCC",
+        "advanced": "{}",
+        "uriTabActive": "tab-uri-advanced"
+    },
+    {
+        "id": "ab8c37e86a527564",
+        "type": "mongodb4",
+        "z": "d48a03f3e299ce98",
+        "clientNode": "fc2b1141e4735ca6",
+        "mode": "collection",
+        "collection": "",
+        "operation": "insertOne",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "",
+        "x": 1280,
+        "y": 180,
+        "wires": [
+            [
+                "123688058e3369ee"
+            ]
+        ]
+    },
+    {
+        "id": "eb02a6e9482dde24",
+        "type": "mongodb4",
+        "z": "d48a03f3e299ce98",
+        "clientNode": "fc2b1141e4735ca6",
+        "mode": "collection",
+        "collection": "",
+        "operation": "insertOne",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "",
+        "x": 1240,
+        "y": 120,
+        "wires": [
+            [
+                "a3c8826db6fef6f4"
+            ]
+        ]
+    },
+    {
+        "id": "e3ee40dce1b55ed3",
+        "type": "inject",
+        "z": "d48a03f3e299ce98",
+        "name": "Ligar Máquina",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "rodando",
+        "payloadType": "str",
+        "x": 150,
+        "y": 140,
+        "wires": [
+            [
+                "ce7d8e52a1543ce9"
+            ]
+        ]
+    },
+    {
+        "id": "c329ce61de7281bb",
+        "type": "inject",
+        "z": "d48a03f3e299ce98",
+        "name": "Desligar Máquina",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "desligada",
+        "payloadType": "str",
+        "x": 160,
+        "y": 200,
+        "wires": [
+            [
+                "ce7d8e52a1543ce9"
+            ]
+        ]
+    },
+    {
+        "id": "ce7d8e52a1543ce9",
+        "type": "function",
+        "z": "d48a03f3e299ce98",
+        "name": "Controle da Máquina",
+        "func": "// Este código unifica o estado da máquina.\n// Ele espera receber msg.payload como \"rodando\" ou \"desligada\" dos botões.\n\nlet novoEstado = msg.payload;\n\nif (novoEstado === \"rodando\") {\n    flow.set(\"machine_state\", \"rodando\");\n    node.warn(\"MÁQUINA LIGADA MANUALMENTE.\");\n} else if (novoEstado === \"desligada\") {\n    flow.set(\"machine_state\", \"desligada\");\n    node.warn(\"MÁQUINA DESLIGADA MANUALMENTE.\");\n}\n\n// Este nó não precisa enviar nenhuma mensagem adiante.\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 180,
+        "wires": [
+            [
+                "1939cd002b1796a2"
+            ]
+        ]
+    },
+    {
+        "id": "f6a61a83bee0fb94",
+        "type": "inject",
+        "z": "d48a03f3e299ce98",
+        "name": "Ciclo da Máquina",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "6",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 450,
+        "y": 260,
+        "wires": [
+            [
+                "1939cd002b1796a2"
+            ]
+        ]
+    },
+    {
+        "id": "1939cd002b1796a2",
+        "type": "function",
+        "z": "d48a03f3e299ce98",
+        "name": "Simulador de Produção/Parada",
+        "func": "// --- VERIFICAÇÃO DE ESTADO \"INTELIGENTE\" ---\nlet currentState = flow.get(\"machine_state\") || \"desligada\";\nlet lastState = flow.get(\"last_checked_state\") || \"desligada\";\n\nif (currentState !== \"rodando\") {\n    if (currentState !== lastState) {\n        node.warn(\"Ciclo ignorado. Estado atual: \" + currentState);\n        flow.set(\"last_checked_state\", currentState);\n    }\n    return null;\n}\n\nif (lastState !== \"rodando\") {\n    flow.set(\"last_checked_state\", \"rodando\");\n}\n\n// --- PROBABILIDADES (AJUSTADO) ---\nconst taxaDeSucesso = 0.89;       // 89% de chance\nconst taxaDeMicroParada = 0.10;   // 10% de chance\n// O 'else' cuidará do 1% restante (Parada Longa)\n\nconst aleatorio = Math.random();\n\n// --- LÓGICA DE DECISÃO ---\n\nif (aleatorio < taxaDeSucesso) {\n    // SUCESSO (89%): Envia pela primeira saída\n    return [{ payload: { status: \"produzido\" } }, null, null];\n\n} else if (aleatorio < taxaDeSucesso + taxaDeMicroParada) {\n    // MICRO-PARADA (10%): Envia pela segunda saída\n    const msgMicroParada = { payload: { status: \"parada\", motivo: \"Micro-parada\", duration_seconds: 5 } };\n    return [null, msgMicroParada, null];\n\n} else {\n    // PARADA LONGA (1%): A LÓGICA PRINCIPAL ACONTECE AQUI\n    flow.set(\"machine_state\", \"parada\");\n    \n    node.warn(\"PARADA LONGA INICIADA! Produção pausada.\");\n    flow.set(\"last_checked_state\", \"parada\");\n\n    // --- DURAÇÃO (AJUSTADO) ---\n    // Gera a duração aleatória (entre 10 e 60 segundos)\n    const duracao = Math.floor(Math.random() * (60 - 10 + 1)) + 10;\n\n    // Prepara a mensagem para salvar a parada no banco (Saída 2)\n    const msgParadaDB = { payload: { status: \"parada\", motivo: \"Parada Não Classificada\", duration_seconds: duracao } };\n\n    // Prepara uma mensagem de \"reinício\" com um delay (Saída 3)\n    const msgReinicio = {\n        payload: \"Sinal para reiniciar a máquina\",\n        \"delay\": duracao * 1000 // milissegundos\n    };\n    \n    return [null, msgParadaDB, msgReinicio];\n}",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 180,
+        "wires": [
+            [
+                "a1811c1136065410"
+            ],
+            [
+                "a3e8fd2fc8debf2d"
+            ],
+            [
+                "e95e645b2b701be1"
+            ]
+        ]
+    },
+    {
+        "id": "a1811c1136065410",
+        "type": "function",
+        "z": "d48a03f3e299ce98",
+        "name": "Calcular Métricas",
+        "func": "let isDefective = Math.random() < 0.03;\nlet defectivePieces = flow.get(\"defectivePieces\") || 0;\nif (isDefective) {\n    defectivePieces++;\n    flow.set(\"defectivePieces\", defectivePieces);\n}\n\nmsg.payload = {\n    machineId: \"Torno\",\n    type: \"production_cycle\",\n    isDefective: isDefective,\n    totalPieces: 1,\n    timestamp: new Date()\n};\nmsg.collection = \"ciclos_producao\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1050,
+        "y": 120,
+        "wires": [
+            [
+                "eb02a6e9482dde24"
+            ]
+        ]
+    },
+    {
+        "id": "a3e8fd2fc8debf2d",
+        "type": "function",
+        "z": "d48a03f3e299ce98",
+        "name": "Prepara Dados de Parada",
+        "func": "const motivo = msg.payload.motivo;\nconst duracao = msg.payload.duration_seconds;\n\nmsg.payload = {\n    machineId: \"Torno\",\n    type: \"machine_stop\",\n    reason: motivo,\n    duration_seconds: duracao,\n    classified: (motivo === \"Parada Não Classificada\" ? false : true),\n    timestamp: new Date()\n};\nmsg.collection = \"paradas_maquina\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1070,
+        "y": 180,
+        "wires": [
+            [
+                "ab8c37e86a527564"
+            ]
+        ]
+    },
+    {
+        "id": "e95e645b2b701be1",
+        "type": "delay",
+        "z": "d48a03f3e299ce98",
+        "name": "variável",
+        "pauseType": "delayv",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1020,
+        "y": 240,
+        "wires": [
+            [
+                "b37815f2063ea5e9"
+            ]
+        ]
+    },
+    {
+        "id": "b37815f2063ea5e9",
+        "type": "function",
+        "z": "d48a03f3e299ce98",
+        "name": "Reiniciar Máquina",
+        "func": "let machineState = flow.get(\"machine_state\");\n\nif (machineState === \"parada\") {\n    flow.set(\"machine_state\", \"rodando\");\n    node.warn(\"Máquina reiniciada. Produção retomada.\");\n} else {\n    node.warn(\"Reinício automático ignorado. Estado atual: \" + machineState);\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1210,
+        "y": 240,
+        "wires": [
+            [
+                "c5da1132cdead8b3"
+            ]
+        ]
+    },
+    {
+        "id": "c5da1132cdead8b3",
+        "type": "debug",
+        "z": "d48a03f3e299ce98",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1420,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "123688058e3369ee",
+        "type": "debug",
+        "z": "d48a03f3e299ce98",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1440,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "a3c8826db6fef6f4",
+        "type": "debug",
+        "z": "d48a03f3e299ce98",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1400,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "daf6ac5cdaa073b7",
+        "type": "function",
+        "z": "c1d4f3e2fd829333",
+        "name": "Gerar sinal",
+        "func": "// --- PARÂMETROS DA SIMULAÇÃO ---\nconst machineId = \"Torno\";\n\n// --- FUNÇÃO PARA GERAR NÚMEROS ALEATÓRIOS EM UMA FAIXA ---\nfunction randomInRange(min, max, decimals = 1) {\n    const str = (Math.random() * (max - min) + min).toFixed(decimals);\n    return parseFloat(str);\n}\n\n// --- GERAÇÃO DAS MÉTRICAS DE REDE ---\nlet rssi = randomInRange(-65, -40, 0);       // Sinal forte a médio\nlet snr = randomInRange(20, 35, 0);           // Boa relação sinal-ruído\nlet latency = randomInRange(10, 50, 0);       // Latência baixa a média\nlet throughput = randomInRange(40, 60, 1);    // Vazão de dados\nlet jitter = randomInRange(1, 5, 1);          // Jitter baixo\nlet packetLoss = randomInRange(0, 1.5, 1);    // Perda de pacote baixa\n\n// --- LÓGICA PARA DETERMINAR O STATUS ---\nlet status = \"online\";\n\n// Simula uma perda de sinal baseada no RSSI\nif (rssi < -60) {\n    status = \"weak_signal\";\n    // Com sinal fraco, as outras métricas pioram\n    latency += 30;\n    jitter += 5;\n    packetLoss += 2;\n}\n\n// Simula uma queda completa de rede (5% de chance)\nif (Math.random() < 0.05) {\n    status = \"offline\";\n    // Se está offline, as métricas são nulas ou indicam falha\n    rssi = null;\n    snr = null;\n    latency = null;\n    throughput = null;\n    jitter = null;\n    packetLoss = 100.0;\n}\n\n\n// --- MONTAGEM DO OBJETO FINAL ---\nmsg.payload = {\n    machineId: machineId,\n    timestamp: new Date().toISOString(), // Formato padrão universal Z (UTC)\n    networkMetrics: {\n        rssi: rssi,             // dBm\n        snr: snr,               // dB\n        latency: latency,       // ms\n        throughput: throughput, // Mbps\n        jitter: jitter,         // ms\n        packetLoss: packetLoss  // %\n    },\n    status: status,           // online/offline/weak_signal\n    lastUpdate: \"Agora\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 240,
+        "wires": [
+            [
+                "e1826b49d8f75f75",
+                "ec9d14f428d9c80f"
+            ]
+        ]
+    },
+    {
+        "id": "e1826b49d8f75f75",
+        "type": "debug",
+        "z": "c1d4f3e2fd829333",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "747e5ef362f78066",
+        "type": "inject",
+        "z": "c1d4f3e2fd829333",
+        "name": "Gerar Sinal a cada 10s",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 240,
+        "wires": [
+            [
+                "daf6ac5cdaa073b7"
+            ]
+        ]
+    },
+    {
+        "id": "ec9d14f428d9c80f",
+        "type": "mongodb4",
+        "z": "c1d4f3e2fd829333",
+        "clientNode": "fc2b1141e4735ca6",
+        "mode": "collection",
+        "collection": "sensor_data",
+        "operation": "insertOne",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "",
+        "x": 680,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8ea8d5a1c9d6321b",
+        "type": "inject",
+        "z": "11999e75b99dda37",
+        "name": "Cadastrar Máquina",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 200,
+        "wires": [
+            [
+                "d107f671d78f61de"
+            ]
+        ]
+    },
+    {
+        "id": "d107f671d78f61de",
+        "type": "function",
+        "z": "11999e75b99dda37",
+        "name": "Preparar Cadastro da Máquina",
+        "func": "// O critério para encontrar a máquina.\nconst query = {\n    machineId: \"Torno\"\n};\n\n// Os dados que queremos inserir ou atualizar.\nconst update = {\n    $set: {\n        name: \"Simulador Interno Node-RED\",\n        status: \"registrada\",\n        location: \"Planta Piloto TCC\",\n        registeredAt: new Date(),\n        // Adicionando o machineId aqui também para garantir que ele seja criado na primeira vez\n        machineId: \"SIMULADOR-01\"\n    }\n};\n\n// As opções da operação, incluindo o upsert.\nconst options = {\n    upsert: true\n};\n\n// O formato correto para a operação 'updateOne' neste nó:\n// um array contendo [query, update, options]\nmsg.payload = [\n    query,\n    update,\n    options\n];\n\n// As propriedades msg.query, msg.options etc. não são mais necessárias\n// pois está tudo dentro do msg.payload.\ndelete msg.query;\ndelete msg.options;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 200,
+        "wires": [
+            [
+                "5d10624be9a77b71",
+                "c6f6565b6dede397"
+            ]
+        ]
+    },
+    {
+        "id": "c6f6565b6dede397",
+        "type": "debug",
+        "z": "11999e75b99dda37",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "5d10624be9a77b71",
+        "type": "mongodb4",
+        "z": "11999e75b99dda37",
+        "clientNode": "fc2b1141e4735ca6",
+        "mode": "collection",
+        "collection": "machines",
+        "operation": "insertOne",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "",
+        "x": 820,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b109d4308ec85ea3",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-mongodb4": "3.1.1"
+        }
+    }
+]
